@@ -1,0 +1,2 @@
+# 此目录存放资产表 NAS 版工程内副本 asset_library_nas.db（.gitignore 不入库）。
+# 缺失时从 NAS \\192.168.9.251\音效2\资源库\_索引\ 拷贝，或跑 scripts\make_nas_asset_db.py 重新生成。

@@ -10,6 +10,8 @@ sources/*.wmv
 exports/*.wav
 exports/*.flac
 exports/*.aiff
+# 资产表 NAS 版工程内副本（46MB 级二进制；用 scripts\make_nas_asset_db.py 可再生）
+assets/*.db
 # 通用大媒体（帧证据小图 jpg 除外，属实测记录）
 *.mp4
 *.mkv

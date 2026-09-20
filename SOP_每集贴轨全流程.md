@@ -52,8 +52,8 @@
 
 ## ④ 选材（资产表强制引用）
 
-- DB：`Desktop\音效工作流交接包_20260907\scripts\pipeline\asset_library.db`（61,347 条，path 前缀 `D:\音效文件\` 全部有效）。
-- 检索姿势：`sys.path.insert` pipeline 目录后 `from search_assets import search`；或 q() SQL 模式（交接包 04 号）。**CLI 直跑 search_assets.py 会报错**（index/ 硬编码坑）。长环境底加 `WHERE duration >= N` 过滤。
+- DB（双版本，2026-09-20 起）：本机版 `Desktop\音效工作流交接包_20260907\scripts\pipeline\asset_library.db`（61,397 条，path 前缀 `D:\音效文件\`）；NAS 通用版 `\\192.168.9.251\音效2\资源库\_索引\asset_library_nas.db`（60,871 条，path 即 NAS 绝对路径；526 条 NAS 真缺失已剔除，清单见 `cues\资产表NAS版映射报告_20260920.md`）。用哪版由机器配置 `~/.claude/foley_machine_config.json`（`/开始` 生成）决定，施工时写进本工程 `foley_project.json`；未配置先跑 `/开始`，禁止猜路径。
+- 检索姿势：`sys.path.insert` 含 search_assets.py 的目录（机器配置 `pipeline_dir`：本机=交接包 pipeline，NAS 用户=`资源库\_索引\`，工程内副本=`scripts\`）后 `from search_assets import search`；或 q() SQL 模式（交接包 04 号）。**CLI 直跑 search_assets.py 会报错**（index/ 硬编码坑）。长环境底加 `WHERE duration >= N` 过滤。bash 里用 python 访问 NAS（UNC 路径）必须写脚本文件执行，禁止 `python -c` 内联（实测静默失败）。
 - 规则：集内同源 ≤2 次、异窗轮换、玄幻用正货包；**星级不硬卡**——同音色池内 5 星前置，音色与星级冲突时音色匹配优先并留痕（20260916 定稿）；**每条 cue 记录资产引用（name/rating/duration），禁止猜文件名、禁止 glob 摸文件系统**。
 - **脚步声一律不配（20260916 制作人条款）**：脚步节奏无法与画面对齐，脚步（含怪物足步/爬行步）归人工环节；报告中的脚步类事件一律归【手动】不配，AI 不选材不贴轨。
 - DB 的 cues 表（856 行）len 全空不可用；start_offset 一律由 CUES 表手工设计。
