@@ -1,0 +1,210 @@
+[扩展] dock harbor ambience -> ['dock ambience', 'harbor ambience', 'marina ambience', 'pier ambience', 'seaport ambience', 'waterfront ambience', 'dock atmosphere', 'harbor atmosphere', 'dock background', 'harbor background', 'port ambience', 'coastal dock']
+[排除] ['ship', 'boat', 'siren', 'horn', 'engine', 'motor', 'train', 'rail']
+
+===== [码头底 | dock harbor ambience] 8 hits =====
+   17.34 r0 30.0000s | D:\音效文件\Boom Library\18.【未来科幻高科技】\Sci-Fi  Bundle\Sci-Fi Designed\SF-DS Ambience Spaceship Rumble 02.wav
+   15.37 r0    32.0s | D:\音效文件\Boom Library\18.【未来科幻高科技】\Sci-Fi  Bundle\Sci-Fi Designed\SF-DS Ambience Space High 02.wav
+   15.21 r0 70.5301s | D:\音效文件\Boom Library\Transportation\NP01 0052 Trans traffic highway busy din ambience loop.wav
+   13.53 r0 86.5701s | D:\音效文件\Boom Library\Transportation\NP01 0053 Trans traffic highway busy din birds loop.wav
+   13.39 r0    30.0s | D:\音效文件\Boom Library\18.【未来科幻高科技】\Sci-Fi  Bundle\Sci-Fi Designed\SF-DS Ambience Computerroom Rumble 01.wav
+   12.55 r0 71.7767s | D:\音效文件\Boom Library\Transportation\NP01 0062 Trans traffic truck busy brakes loop.wav
+   12.45 r0 95.6114s | D:\音效文件\Boom Library\Transportation\NP01 0213 Trans jet interior din loop v6.wav
+   12.22 r0 210.049s | D:\音效文件\Boom Library\Transportation\NP01 0066 Trans traffic truck distant city day ambience loop.wav
+[扩展] crowd walla market people talking -> ['crowd walla', 'market ambience', 'market chatter', 'people talking', 'background crowd', 'street market', 'bazaar ambience', 'indistinct voices', 'crowd murmur', 'market hubbub', 'ambient crowd', 'crowd babble']
+[排除] ['choir', 'scream', 'shout', 'chant', 'protest', 'stadium', 'concert', 'lecture']
+
+===== [码头底 | crowd walla market people talking] 8 hits =====
+   27.24 r0 116.329s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_02_05\MLCK LOCATION Alleyway Crowd Walking Walla.wav
+   22.03 r0 147.349s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_03_05\MLCK LOCATION City Church Bell 01.wav
+   19.47 r0   240.0s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_03_05\MLCK LOCATION City Sparse 01.wav
+   19.40 r0    91.0s | D:\音效文件\Boom Library\55.【中世纪生活】\Boom Library Medieval Life Designed\mlds_stereo\MLDS Market Place Small 04.wav
+   17.85 r0    91.0s | D:\音效文件\Boom Library\55.【中世纪生活】\Boom Library Medieval Life Designed\mlds_stereo\MLDS Courtyard Light 04.wav
+   16.66 r0    91.0s | D:\音效文件\Boom Library\55.【中世纪生活】\Boom Library Medieval Life Designed\mlds_stereo\MLDS Market Place Small 02.wav
+   15.36 r0    91.0s | D:\音效文件\Boom Library\55.【中世纪生活】\Boom Library Medieval Life Designed\mlds_stereo\MLDS Market Place Large 02.wav
+   14.68 r0 130.105s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_03_05\MLCK LOCATION City Large Sparse MSC.wav
+[扩展] water waves lap pier -> ['water lap', 'waves lap', 'pier lap', 'water lapping', 'waves lapping', 'pier lapping', 'water wash', 'waves wash', 'water ripple', 'waves ripple', 'water gentle crash', 'water shoreline lap']
+[排除] ['ocean', 'surf', 'crash', 'storm', 'tsunami', 'boat', 'dock', 'harbor']
+[锁定包] ['cinematic elements - fire & water ds', 'cinematic elements - fire & water ck']
+
+===== [码头底 | water waves lap pier] 8 hits =====
+   28.41 r5 26.7540s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water DS\CEDS WATER Impact Deep Large.wav
+   36.31 r5    90.2s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Sea Waves.wav
+   30.93 r5    91.0s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Waves Sea Betweens Rocks Splash Break Moderate Close.wav
+   33.70 r5    91.0s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Waves Sea Sand Moderate Foamy Close.wav
+   30.93 r5    91.0s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Waves Sea Betweens Rocks Splash Break Calm Close.wav
+   33.49 r5    91.0s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Waves Sea Sand Very Calm Foamy Close.wav
+   32.63 r0 74.4993s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Flowerpot Movement Lapping UW.wav
+   30.91 r0 71.4526s | D:\音效文件\Boom Library\45.【水 火 纸】\Cinematic Elements - Fire & Water CK\CECK WATER Flowerpot Movement Lapping.wav
+[扩展] boat mast creak harbor -> ['boat mast creak', 'mast creak', 'wooden mast creak', 'sailboat mast creak', 'harbor mast creak', 'rigging creak', 'mast groan', 'mast squeak', 'boat mast sway', 'mast wood stress', 'harbor boat creak', 'sailing vessel mast creak']
+[排除] ['tree', 'door', 'chair', 'floorboard', 'thunder', 'engine', 'horn', 'wave']
+
+===== [船桅 | boat mast creak harbor] 8 hits =====
+   14.06 r0 17.7646s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT CREAK Wood Small.wav
+   13.23 r0 119.507s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak Dull.wav
+   11.44 r0   5.022s | D:\音效文件\Boom Library\Transportation\NP01 0165 Trans boat underwater propeller engages.wav
+   10.76 r0 15.5703s | D:\音效文件\设计音效《玄幻法器》\玄幻法器 神风舟 【声羽拾光】.wav
+   10.72 r0  80.192s | D:\音效文件\Boom Library\15.【中世纪武器】\Medieval Weapons Bindle\Construction Kit\Siege Wood Squeak Small 01.wav
+   10.26 r0 54.2991s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT CREAK Balloon Rub Creak.wav
+   10.02 r0 29.9956s | D:\音效文件\Boom Library\Transportation\NP01 0166 Trans boat underwater propeller engages tapping.wav
+    9.86 r0 27.3971s | D:\音效文件\Boom Library\Transportation\NP01 0159 Trans boat diesel idle accelerate idle loop.wav
+[扩展] wooden ship creak -> ['wooden ship creak', 'ship creak', 'wooden hull creak', 'hull creak', 'timber ship groan', 'wooden vessel squeak', 'sailboat creak', 'old ship groan', 'wooden deck creak', 'ship timber stress', 'wooden boat moan', 'vessel frame creak']
+[排除] ['metal', 'steel', 'iron', 'submarine', 'airplane', 'car', 'train', 'plastic']
+
+===== [船桅 | wooden ship creak] 8 hits =====
+   23.07 r0 187.322s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak Big.wav
+   22.54 r0 115.767s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak Medium.wav
+   22.03 r0 67.5200s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak Big Single.wav
+   22.03 r0 138.830s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak Large.wav
+   21.66 r0 25.6910s | D:\音效文件\Boom Library\Transportation\NP01 0177 Trans ship hull din loop v1.wav
+   21.07 r0 111.794s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak.wav
+   20.62 r0 171.551s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_04_05\MLCK LOCATION Ship Wood Creak Big Slow.wav
+   20.25 r0 74.4186s | D:\音效文件\Boom Library\Transportation\NP01 0178 Trans ship hull din loop v2.wav
+[扩展] drinking sip slurp bowl -> ['drink sip', 'sip sound', 'slurp', 'slurping', 'bowl sip', 'bowl slurp', 'liquid sip', 'liquid slurp', 'mouth sip', 'mouth slurp', 'tea sip', 'coffee sip', 'soup slurp', 'hot drink sip']
+[排除] ['chug', 'gulp', 'swallow', 'pour', 'spill', 'clink', 'ceramic', 'porcelain']
+
+===== [啜饮 | drinking sip slurp bowl] 8 hits =====
+   27.37 r0 16.0678s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT HUMAN Mouth Water Slurp.wav
+   14.37 r0 5.28966s | D:\音效文件\Boom Library\78.【居家日常】\FX_Tea_Strainer_Loop.wav
+   11.78 r0 11.9925s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT BOING Mouth Harp Metal Big Jump.wav
+   10.94 r0 18.5090s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT IMPACT Metal Bowl.wav
+   10.81 r0 69.5006s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_02_02\BT PERCUSSION Singing Bowl High.wav
+   10.55 r0 112.510s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_02_02\BT PERCUSSION Singing Bowl Low.wav
+   10.33 r0 171.843s | D:\音效文件\Boom Library\14.【魔术 魔幻】\Magic Bundle\MAGIC - Construction Kit\MACK Liquid Spray Water Static Soft.wav
+   10.23 r0 24.3159s | D:\音效文件\Boom Library\14.【魔术 魔幻】\Magic Bundle\MAGIC - Construction Kit\MACK Liquid Slurp Water Large.wav
+[扩展] gulp swallow liquid -> ['gulp', 'swallow', 'liquid swallow', 'throat gulp', 'human gulp', 'mouth swallow', 'wet swallow', 'audible swallow', 'saliva swallow', 'ingestion sound', 'swallowing liquid', 'throat swallowing']
+[排除] ['vomit', 'cough', 'choke', 'gag', 'animal', 'horse', 'dog', 'cat']
+
+===== [啜饮 | gulp swallow liquid] 8 hits =====
+   29.69 r0 12.5452s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT HUMAN Mouth Swallow.wav
+   16.76 r0 16.0678s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT HUMAN Mouth Water Slurp.wav
+   16.63 r0 10.3947s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT HUMAN Mouth Shake Fast.wav
+   16.44 r0 3.92533s | D:\音效文件\Boom Library\19.【交互界面 按钮 书本】\The Interface\Organic Mouth Pop 01.wav
+   16.44 r0 3.33733s | D:\音效文件\Boom Library\19.【交互界面 按钮 书本】\The Interface\Organic Mouth Pop 02.wav
+   15.48 r0 53.3120s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT HUMAN Mouth Flaps Continuous.wav
+   14.58 r0 22.3746s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT HUMAN Mouth Flaps Short Up Down.wav
+   14.52 r0 15.8422s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_02_02\BT WATER Bubble Mouth.wav
+[扩展] crowd laughing group laughter market -> ['crowd laugh', 'crowd laughter', 'group laugh', 'group laughter', 'market crowd laugh', 'market crowd laughter', 'people laugh', 'people laughing', 'audience laugh', 'audience laughter', 'laughing crowd', 'laughter crowd']
+[排除] ['solo', 'individual', 'child', 'baby', 'infant', 'teen', 'teenager', 'woman']
+
+===== [群笑 | crowd laughing group laughter market] 8 hits =====
+   19.90 r0 36.6748s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT INSTRUMENT Trombone Laughing.wav
+   19.32 r0  27.398s | D:\音效文件\Boom Library\56.【法师 魔法 战斗 】\Construction Kit WAV\MAFCK VOICE Group Vocal Evil Laughing.wav
+   19.07 r0 57.4963s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_02_02\BT TOY Evil Laughing Pillow.wav
+   14.66 r5 1.66802s | D:\音效文件\Sound Morph\(爆炸坍塌)SoundMorph - Matter Mayhem\09. Debris - Wood\Matter Mayhem - Wood_Group planks shake-01.wav
+   14.49 r0 41.5325s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_02_02\BT TOY Groan Tube Laughing.wav
+   14.30 r0 147.349s | D:\音效文件\Boom Library\55.【中世纪生活】\Construction Kits WAV\Medieval Life Construction Kits\ml_ck_stereo_03_05\MLCK LOCATION City Church Bell 01.wav
+   13.16 r0 17.6576s | D:\音效文件\Boom Library\60.【怪兽野兽嘶吼嚎叫】\Boom_Monsters_Beasts_Bundle\Monsters & Beasts CK\Animals02\MBCK ANIMAL Hyena Laugh .wav
+   12.82 r0 17.7035s | D:\音效文件\Boom Library\60.【怪兽野兽嘶吼嚎叫】\Boom_Monsters_Beasts_Bundle\Monsters & Beasts CK\Animals02\MBCK ANIMAL Hyena Laugh 100kHz.wav
+[扩展] birds chirping garden ambience -> ['bird chirp', 'bird tweet', 'bird sing', 'bird call', 'avian chirp', 'garden ambience', 'backyard birds', 'bird chorus', 'morning birds', 'songbird chirping', 'garden birds', 'bird vocalization']
+[排除] ['crow', 'raven', 'eagle', 'hawk', 'owl', 'duck', 'goose', 'rooster']
+
+===== [内院底 | birds chirping garden ambience] 8 hits =====
+   16.84 r0 4.88671s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\FALCON Taita, Chirp 01.wav
+   16.39 r0 15.5915s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\FALCON Pygmy, Call 01.wav
+   16.12 r0 3.92404s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\FALCON Taita, Chirp 02.wav
+   15.38 r0    11.5s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\FALCON Pygmy, Call, Flying 02.wav
+   15.15 r0 9.54548s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\GOSHAWK Pale Chanting, High Chirp 01.wav
+   15.12 r0 9.43982s | D:\音效文件\Boom Library\32.【卡通 TOONS】\TOONS\boom_toons_01_02\BT INSTRUMENT Bird Pipe Chirp.wav
+   14.85 r0 19.1882s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\GOSHAWK Pale Chanting, Low Chirp, Movement 03.wav
+   14.57 r0 16.8348s | D:\音效文件\Boom Library\02.【猛禽类】\Birds Of Prey\GOSHAWK Pale Chanting, Low Chirp 01.wav
+[扩展] wind leaves rustling quiet park -> ['wind rustling leaves', 'leaves rustle', 'foliage rustle', 'tree rustle', 'park ambience', 'quiet park wind', 'gentle wind leaves', 'breeze through leaves', 'wind in trees', 'leaf flutter', 'arboreal rustle', 'wind foliage']
+[排除] ['storm', 'thunder', 'rain', 'bird', 'crowd', 'traffic', 'footsteps', 'dog']
+
+===== [内院底 | wind leaves rustling quiet park] 8 hits =====
+   13.92 r5   40.25s | D:\音效文件\Boom Library\105.【转场 过渡 速度 嗖嗖】\Cinematic Motion CK\WHSH_ORGANIC-Wind Base Gust Long_B00M_CMCK.wav
+   13.92 r5 17.0038s | D:\音效文件\Boom Library\105.【转场 过渡 速度 嗖嗖】\Cinematic Motion CK\WHSH_ORGANIC-Wind Base Airwave Short Resonant_B00M_CMCK.wav
+   25.30 r0 104.444s | D:\音效文件\Boom Library\22.【自然 风】\Winds Of Nature\QP02 0158 Wind plants leaves rustle.wav
+   24.42 r0 263.163s | D:\音效文件\Boom Library\22.【自然 风】\Winds Of Nature\QP02 0184 Wind deciduous forest breeze gentle insects.wav
+   22.73 r0 175.463s | D:\音效文件\Boom Library\22.【自然 风】\Winds Of Nature\QP02 0225 Wind coniferous with tree creaking.wav
+   21.95 r0 169.957s | D:\音效文件\Boom Library\22.【自然 风】\Winds Of Nature\QP02 0163 Wind plants breeze dry twigs leaves.wav
+   20.81 r0 130.473s | D:\音效文件\Boom Library\22.【自然 风】\Winds Of Nature\QP02 0162 Wind plants roaring breeze.wav
+   20.70 r0  83.392s | D:\音效文件\Boom Library\84.【自然氛围】\Boom_Library_Quietudes\QP14 1799 Quietudes Hawaii volcanic crater quiet wind V1.wav
+[扩展] birds forest morning -> ['bird chirp', 'bird tweet', 'bird sing', 'bird call', 'forest bird', 'morning bird', 'avian chorus', 'bird dawn chorus', 'woodland bird', 'bird trill', 'bird warble', 'bird flutter']
+[排除] ['crow', 'raven', 'eagle', 'hawk', 'owl', 'duck', 'goose', 'seagull']
+
+===== [内院底 | birds forest morning] 8 hits =====
+   26.98 r0 84.8591s | D:\音效文件\Boom Library\39.【城市郊区日常生活环境氛围音效】\Urban ＆ Suburban\NP02 0309 Suburban park morning bird chorus V1.wav
+   25.70 r0 96.3666s | D:\音效文件\Boom Library\39.【城市郊区日常生活环境氛围音效】\Urban ＆ Suburban\NP02 0311 Suburban park morning bird chorus busy.wav
+   23.82 r0 111.896s | D:\音效文件\Boom Library\39.【城市郊区日常生活环境氛围音效】\Urban ＆ Suburban\NP02 0310 Suburban park morning bird chorus V2.wav
+   23.58 r0 13.0528s | D:\音效文件\Boom Library\16.【大自然环境音效】\Nature Essentials\QP01 0043 Tropical forest bird ruckus dawn.wav
+   21.49 r0 190.474s | D:\音效文件\Boom Library\16.【大自然环境音效】\Nature Essentials\QP01 0037 Tropical forest morning.wav
+   21.14 r0 162.195s | D:\音效文件\Boom Library\16.【大自然环境音效】\Nature Essentials\QP01 0038 Tropical forest morning.wav
+   20.30 r0   80.48s | D:\音效文件\Boom Library\84.【自然氛围】\Boom_Library_Quietudes\QP14 1732 Quietudes Deciduous Forests dawn chorus.wav
+   19.23 r0 91.2746s | D:\音效文件\Boom Library\84.【自然氛围】\Boom_Library_Quietudes\QP14 1731 Quietudes Deciduous Forests dawn chorus onset.wav
+[扩展] scissors cutting snip fabric -> ['scissors cut', 'scissors snip', 'fabric cut', 'fabric snip', 'cloth cut', 'cloth snip', 'shears cut', 'shears snip', 'scissor blade', 'scissor metal', 'scissor hinge', 'textile cut']
+[排除] ['paper', 'hair', 'metal', 'wire', 'nail', 'bone', 'wood', 'plastic']
+[锁定包] ['close combat bundle']
+
+===== [剪刀 | scissors cutting snip fabric] 8 hits =====
+   16.15 r0 6.04343s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Hard 01.wav
+   16.02 r0 7.95931s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Soft 02.wav
+   15.90 r0 4.16567s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Hard 02.wav
+   15.90 r0   4.688s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Medium 02.wav
+   15.78 r0 7.70623s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Bodygrab Cloth Hard.wav
+   15.78 r0 3.74852s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Medium 01.wav
+   15.78 r0 4.97195s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Soft 01.wav
+   15.66 r0 5.53853s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Bodygrab Cloth Medium.wav
+[扩展] scissors snips -> ['scissors snip', 'scissors cut', 'scissors clip', 'scissors shear', 'scissors trim', 'scissors snipping', 'scissors cutting', 'scissor snip', 'scissor cut', 'scissor shear', 'fabric snip', 'paper snip']
+[排除] ['knife', 'razor', 'shears', 'pruner', 'clippers', 'nail', 'hair', 'thunder']
+
+===== [剪刀 | scissors snips] 8 hits =====
+   14.37 r0 2.96245s | D:\音效文件\Boom Library\78.【居家日常】\FX_Scissors_Scrape_Whistling.wav
+   13.62 r0    12.0s | D:\音效文件\Boom Library\70.【生物 野兽】\creature_foley_ck\CLAW\CFCK CLAW Fabric Scissor Scrape.wav
+    9.42 r0 9.69643s | D:\音效文件\Boom Library\99.【电影预告片设计元素音效】\Cinematic Expressions CK\MUSCStr_INSTRUMENT-Violin Finger snip Bridge_B00M_CXCK.wav
+    8.36 r0 16.2243s | D:\音效文件\设计音效《剑心》\剑心 截剑 【声羽拾光】.wav
+    7.85 r0 12.6131s | D:\音效文件\Boom Library\05.【史诗宣传音效】\Cinematic Trailers Bundle\Designed\STINGER_Piercing_Cut.wav
+    7.66 r0 3.69404s | D:\音效文件\设计音效《剑心》\剑心 剑 切割 墙壁 【声羽拾光】.wav
+    7.49 r0 16.6052s | D:\音效文件\Boom Library\105.【转场 过渡 速度 嗖嗖】\Cinematic Motion CK\WHSH_ORGANIC-Snap Fabric Blanket_B00M_CMCK.wav
+    7.49 r0 14.4016s | D:\音效文件\Boom Library\105.【转场 过渡 速度 嗖嗖】\Cinematic Motion CK\WHSH_ORGANIC-Snap Fabric Coat_B00M_CMCK.wav
+[扩展] cloth movement fabric rustle -> ['cloth rustle', 'fabric rustle', 'cloth movement', 'fabric movement', 'textile rustle', 'textile movement', 'cotton rustle', 'linen rustle', 'silk rustle', 'wool rustle', 'garment rustle', 'clothing rustle']
+[排除] ['paper', 'plastic', 'metal', 'leather', 'wind', 'water', 'footsteps', 'breath']
+[锁定包] ['close combat bundle']
+
+===== [叩首扑跪 | cloth movement fabric rustle] 8 hits =====
+   25.99 r0 6.04343s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Hard 01.wav
+   23.53 r0 8.09591s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Cloth Soft 02.wav
+   23.19 r0 21.9167s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Movement Cloth 01.wav
+   23.19 r0 23.0190s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Movement Cloth 02.wav
+   22.85 r0 7.75726s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Cloth Soft 01.wav
+   21.92 r0 30.2424s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Movement Cloth 05.wav
+   21.91 r0 4.16567s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Hard 02.wav
+   21.65 r0 3.74852s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Cloth Medium 01.wav
+[扩展] body fall knee impact ground -> ['human fall', 'person fall', 'body drop', 'knee hit ground', 'knee strike floor', 'knee impact', 'knee thud', 'fall impact', 'ground impact', 'hard fall', 'knee bump', 'knee contact surface']
+[排除] ['horse', 'animal', 'car', 'door', 'wall', 'thunder', 'explosion', 'gunshot']
+[锁定包] ['close combat bundle']
+
+===== [叩首扑跪 | body fall knee impact ground] 8 hits =====
+   26.57 r0 7.88794s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Hard 01.wav
+   25.37 r0 8.71466s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Concrete Medium 01.wav
+   24.91 r0    11.0s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Concrete Hard 01.wav
+   24.67 r0 7.30836s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Soft 01.wav
+   24.53 r0    7.65s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Soft 02.wav
+   24.49 r0 7.62784s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Light Single.wav
+   24.48 r0 12.2767s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Concrete Hard 02.wav
+   24.09 r0 11.1024s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Leather Hard.wav
+[扩展] knee hit floor thud -> ['knee hit floor', 'knee thud', 'knee impact floor', 'knee drop thud', 'knee strike floor', 'human knee hit ground', 'knee contact floor', 'knee thump floor', 'knee bump floor', 'knee land thud', 'knee fall thud', 'knee ground impact']
+[排除] ['elbow', 'foot', 'hand', 'head', 'shoulder', 'hip', 'thunder', 'door']
+[锁定包] ['close combat bundle']
+
+===== [叩首扑跪 | knee hit floor thud] 8 hits =====
+   16.80 r0 7.88794s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Hard 01.wav
+   14.15 r0 7.28533s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Concrete Soft 01.wav
+   13.90 r0    7.65s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Soft 02.wav
+   13.68 r0 7.62784s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Light Single.wav
+   13.67 r0 6.57067s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Medium 01.wav
+   13.56 r0 10.2539s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Concrete Medium 02.wav
+   13.46 r0 10.1121s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Concrete Soft 02.wav
+   13.46 r0 7.59733s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Whoosh Throw Soft 01.wav
+[扩展] fall on ground dirt -> ['person fall ground', 'human fall dirt', 'body hit dirt', 'fall impact dirt', 'dirt thud', 'ground impact fall', 'dirt splatter fall', 'fall stumble dirt', 'dirt crunch fall', 'fall collapse dirt', 'dirt thump', 'fall drop dirt']
+[排除] ['horse', 'animal', 'metal', 'wood', 'concrete', 'pavement', 'stone', 'thunder']
+[锁定包] ['close combat bundle']
+
+===== [叩首扑跪 | fall on ground dirt] 8 hits =====
+   24.83 r0 7.88794s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Hard 01.wav
+   22.51 r0    7.65s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Soft 02.wav
+   22.25 r0     8.5s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Hard 02.wav
+   21.19 r0 7.30836s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Soft 01.wav
+   21.09 r0 6.57067s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Designed\CC-DS Body Fall Generic Medium 01.wav
+   21.01 r0 7.62784s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Light Single.wav
+   20.60 r0 10.0679s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Generic Mid Tumble.wav
+   20.04 r0 11.3481s | D:\音效文件\Boom Library\06.【近战 拳打 脚踢 打斗】\Close Combat Bundle\Close Combat Construction Kit\CC-CK Body Fall Sweetener Head 02.wav

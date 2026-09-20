@@ -1,0 +1,502 @@
+[
+ {
+  "idx": 0,
+  "name": "(MediaTrack*)0x00000000069BC020",
+  "vol": 1.0,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 1,
+  "name": "(MediaTrack*)0x00000000069DFBB0",
+  "vol": 1.0,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 1.0
+ },
+ {
+  "idx": 2,
+  "name": "(MediaTrack*)0x0000000006A13F40",
+  "vol": 0.802387,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 3,
+  "name": "(MediaTrack*)0x0000000006A262B0",
+  "vol": 0.718723,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 4,
+  "name": "(MediaTrack*)0x0000000005EC9FB0",
+  "vol": 1.0,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 5,
+  "name": "(MediaTrack*)0x0000000005EDC860",
+  "vol": 1.0,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": -1.0
+ },
+ {
+  "idx": 6,
+  "name": "(MediaTrack*)0x0000000005F45460",
+  "vol": 0.576656,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 1.0
+ },
+ {
+  "idx": 7,
+  "name": "(MediaTrack*)0x0000000005F777E0",
+  "vol": 0.256277,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 8,
+  "name": "(MediaTrack*)0x0000000005BA0080",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 9,
+  "name": "(MediaTrack*)0x0000000005BD2400",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 10,
+  "name": "(MediaTrack*)0x0000000005BE4770",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 11,
+  "name": "(MediaTrack*)0x0000000005C16AF0",
+  "vol": 0.444449,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 12,
+  "name": "(MediaTrack*)0x0000000005C28E60",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": -1.0
+ },
+ {
+  "idx": 13,
+  "name": "(MediaTrack*)0x0000000005C3B1D0",
+  "vol": 0.616042,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 1.0
+ },
+ {
+  "idx": 14,
+  "name": "(MediaTrack*)0x0000000005C71560",
+  "vol": 0.319415,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 15,
+  "name": "(MediaTrack*)0x000000000641AF60",
+  "vol": 0.20562,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 16,
+  "name": "(MediaTrack*)0x00000000064A2010",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 17,
+  "name": "(MediaTrack*)0x00000000064B48C0",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 18,
+  "name": "(MediaTrack*)0x00000000064E7180",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 19,
+  "name": "(MediaTrack*)0x00000000071A4D80",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 20,
+  "name": "(MediaTrack*)0x00000000071F9550",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 21,
+  "name": "(MediaTrack*)0x000000000720B8C0",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 22,
+  "name": "(MediaTrack*)0x000000000721DC30",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 23,
+  "name": "(MediaTrack*)0x0000000007231FB0",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 24,
+  "name": "(MediaTrack*)0x0000000007244320",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 25,
+  "name": "(MediaTrack*)0x0000000007298010",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 26,
+  "name": "(MediaTrack*)0x0000000005D02D50",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 27,
+  "name": "(MediaTrack*)0x0000000005D150C0",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 28,
+  "name": "(MediaTrack*)0x0000000005D27430",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": -1.0
+ },
+ {
+  "idx": 29,
+  "name": "(MediaTrack*)0x0000000005D397A0",
+  "vol": 0.414428,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 1.0
+ },
+ {
+  "idx": 30,
+  "name": "(MediaTrack*)0x0000000005D8D010",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 31,
+  "name": "(MediaTrack*)0x0000000005D9F380",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 32,
+  "name": "(MediaTrack*)0x0000000005DB16F0",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 33,
+  "name": "(MediaTrack*)0x0000000005E0D020",
+  "vol": 0.229556,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 34,
+  "name": "(MediaTrack*)0x0000000005E61010",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 35,
+  "name": "(MediaTrack*)0x0000000005E73380",
+  "vol": 0.398107,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": -1.0
+ },
+ {
+  "idx": 36,
+  "name": "(MediaTrack*)0x0000000007370F50",
+  "vol": 0.202478,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 1.0
+ },
+ {
+  "idx": 37,
+  "name": "(MediaTrack*)0x00000000073832C0",
+  "vol": 0.1768,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 38,
+  "name": "(MediaTrack*)0x0000000007395630",
+  "vol": 0.1768,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 39,
+  "name": "(MediaTrack*)0x00000000073E9010",
+  "vol": 0.1768,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 40,
+  "name": "(MediaTrack*)0x0000000007407F40",
+  "vol": 0.1768,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": -1.0
+ },
+ {
+  "idx": 41,
+  "name": "(MediaTrack*)0x0000000007429C60",
+  "vol": 1.0,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 42,
+  "name": "(MediaTrack*)0x000000000743BFD0",
+  "vol": 1.0,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": -1.0
+ },
+ {
+  "idx": 43,
+  "name": "(MediaTrack*)0x000000000744E340",
+  "vol": 0.075748,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 44,
+  "name": "(MediaTrack*)0x00000000074D6630",
+  "vol": 0.083863,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 45,
+  "name": "(MediaTrack*)0x000000000750AF00",
+  "vol": 0.14599,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 46,
+  "name": "(MediaTrack*)0x0000000006FEB140",
+  "vol": 2.980232e-08,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 47,
+  "name": "(MediaTrack*)0x0000000006FFD4B0",
+  "vol": 2.980232e-08,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 48,
+  "name": "(MediaTrack*)0x0000000007051010",
+  "vol": 2.980232e-08,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ },
+ {
+  "idx": 49,
+  "name": "(MediaTrack*)0x0000000007063380",
+  "vol": 0.718723,
+  "pan": 0.0,
+  "mute": 0,
+  "solo": 0,
+  "items": 0,
+  "folderdepth": 0.0
+ }
+]

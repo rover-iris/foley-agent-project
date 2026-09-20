@@ -1,0 +1,34 @@
+# ── 大媒体文件不入库（备份只收架构、纪律与文本产物）──
+# 原始视频素材
+sources/*.mp4
+sources/*.mkv
+sources/*.avi
+sources/*.mov
+sources/*.flv
+sources/*.wmv
+# 分轨导出成品
+exports/*.wav
+exports/*.flac
+exports/*.aiff
+# 通用大媒体（帧证据小图 jpg 除外，属实测记录）
+*.mp4
+*.mkv
+*.avi
+*.wav
+*.flac
+*.aiff
+*.mp3
+
+# ── Python 运行残渣 ──
+__pycache__/
+*.pyc
+*.pyo
+
+# ── REAPER 临时文件 ──
+*.rpp-NEWTEMP
+*.rpp-bak-TMP
+
+# ── 系统文件 ──
+Thumbs.db
+.DS_Store
+desktop.ini
