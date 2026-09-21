@@ -18,7 +18,7 @@ description: 视频逐秒动作分析报告的完整流程与出厂门禁。为�
 
 - ffmpeg / ffprobe（PATH 内）
 - 本 skill 自带脚本：
-  - `scripts/extract_frames.py` — 抽帧 + 生成 manifest.json（秒↔帧权威映射，双轮时长复核）
+  - `scripts/extract_frames.py` — 抽帧 + 生成 manifest.json（秒↔帧权威映射，双轮时长复核；默认 480p 出帧省 token）
   - `scripts/check_report.py` — 出厂门禁（合并行/行数/空洞/统计凑数/帧存在性/人名/章节齐全）
 - 视觉判读：多模态原生读图（Read 逐张看图）
 
@@ -33,6 +33,7 @@ python scripts/extract_frames.py <video> frames_<集号>/ --fps 3 --start 55 --e
 
 - 粗扫（3s/帧）只可用于预览剧情，**正式报告禁止用粗扫数据**（实测粗扫时间偏差 2~5s，机枪开火级别的事件都会整段漏掉）
 - 快速动作段（打斗、鞭击、连续碰撞）用 2~4fps 加密确认**起手帧**，并在报告注明加密窗口
+- **默认 480p 出帧（2026-09-21 制作人条款，`--scale` 默认 480）**：识别目标是画面中人物的动作与明显需要音效的事物，不依赖高清细节；帧分辨率直接决定批量读图的视觉 token 消耗，480p 对判读与下游帧证据核验都足够。仅当需要更细证据（小物件接触判定等）时临时 `--scale` 调高。manifest 记录实际 scale 供追溯
 - 每个视频独立帧目录 + manifest.json；manifest 是秒↔帧唯一权威，后续判读/报告/门禁都引用它
 
 ### 第二步：逐帧判读 → per_second.jsonl

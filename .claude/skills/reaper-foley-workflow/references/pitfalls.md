@@ -38,7 +38,7 @@
 | curl/python 到 2308/2309 全挂或 502 | 本机代理劫持对 127.0.0.1 的请求（urllib 会读 HTTP_PROXY！） | `rfw_common.py` 顶部已清代理；自写脚本在 **import reapy_boost 之前**清 HTTP_PROXY/HTTPS_PROXY/ALL_PROXY，设 NO_PROXY=127.0.0.1,localhost |
 | Python 3.13 RPC 挂起/进程无声死亡 | reapy_boost 0.10.201 `http.client.parse_headers` 递归解析爆栈 | `rfw_common.py` 顶部已换迭代实现 + setrecursionlimit(20000) |
 | 进程在、端口在、HTTP 全超时假死 | REAPER 有**模态弹窗**（保存询问/渲染窗），主线程被堵 | Win32 只读探测（probe_windows.py / detect_reaper.sh，EXIT 2=有弹窗）→ **报告用户人工点击，绝不自动化点弹窗** |
-| 分不清 REAPER 开没开 | 进程/端口单一看都会说谎（僵尸假活） | **四重对齐**：进程 + 2308/2309 监听 + HTTP 实测 200 + 窗口标题；工具 `~\.workbuddy\skills\reaper-reapy-boost\scripts\detect_reaper.sh` |
+| 分不清 REAPER 开没开 | 进程/端口单一看都会说谎（僵尸假活） | **四重对齐**：进程 + 2308/2309 监听 + HTTP 实测 200 + 窗口标题（原机检测脚本已随旧环境废弃，按四项自行核对） |
 | AI 启动的 REAPER「闪退」 | 沙箱 Job Object 回收 bash/PowerShell/cmd start 拉起的进程 | **铁律：AI 绝不自行启动 REAPER**，CLOSED 时请用户手动双击，跑 launch_reaper.sh 握手验收 |
 | 触发激活动作返回 200 但不执行 | reaper-kb.ini 损坏（SCR 粘连，本机已修复） | 查 `AppData\Roaming\REAPER\reaper-kb.ini` 行格式，坏备份 `.corrupt-20260831.bak` |
 | 2309 配置在但连不上 | reapy server 激活动作没跑（REAPER 重启后） | `curl --noproxy "*" "http://127.0.0.1:2309/_/_RSZuNAdyBEl5JXJYJ5Ax7AyaNgjqka1MsR99VputBI"`（阻塞数十秒属正常） |

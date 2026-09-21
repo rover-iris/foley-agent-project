@@ -20,6 +20,10 @@ s_059 实际是 t=58s，两版报告全按「s_N = 第N秒」引用，cue 点整
   python extract_frames.py <video> <outdir> --fps 3 --start 55 --end 62   # 快速动作段加密
 产物:
   outdir/s_%03d.jpg + outdir/manifest.json
+
+2026-09-21 修订（制作人条款）：--scale 默认 600→480。识图目标是人物动作与
+明显需配音的事物，不依赖高清细节；帧分辨率直接决定视觉判读的 token 消耗，
+480p 足够判读与帧证据核验。需要更细证据帧时临时 --scale 调高。
 """
 import argparse
 import json
@@ -83,7 +87,8 @@ def main():
     ap.add_argument("outdir")
     ap.add_argument("--fps", type=float, default=1.0,
                     help="1=全量逐秒（正式报告必须）；快速动作段用 2~4 加密确认起手帧")
-    ap.add_argument("--scale", type=int, default=600)
+    ap.add_argument("--scale", type=int, default=480,
+                    help="输出帧高（宽自适应）；默认 480：识图只需动作与明显事物，低分辨率省视觉 token（20260921）")
     ap.add_argument("--start", type=float, default=0.0, help="窗口起点（秒），加密扫描用")
     ap.add_argument("--end", type=float, default=0.0, help="窗口终点（秒），0=到片尾")
     a = ap.parse_args()
@@ -142,6 +147,7 @@ def main():
         "duration": dur,
         "source_fps": src_fps,
         "fps": a.fps,
+        "scale": a.scale,
         "window": [a.start, end],
         "builder": (f"select eq(n) 帧号系精确取帧（2026-09-11 修订版），showinfo pts_time "
                     f"回读自校验 {len(frames)}/{len(frames)} 通过，容差 {tol:.3f}s"),

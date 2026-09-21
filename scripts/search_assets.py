@@ -1,9 +1,11 @@
-# ── 同步副本说明（2026-09-20 随 NAS 版资产表分发）─────────────────────────
+# ── 同步副本说明（2026-09-20 随 NAS 版资产表分发；2026-09-21 更新）────────────
 # 本文件是 交接包\scripts\pipeline\search_assets.py 的副本，供没有交接包的机器
-# 通过 NAS _索引\ 使用检索引擎。更新以交接包原件为源：改原件后重新分发两处副本。
-# 用法（CLI 直跑有 index/ 相对路径旧坑，统一用 import 姿势）：
+# 通过 NAS _索引\（或工程 scripts\）使用检索引擎。更新以交接包原件为源：改原件后重新分发两处副本。
+# CLI 直跑自动按布局找库（同目录 asset_library(_nas).db / 旁级 assets\ / 原机 index\）；
+# 作为模块用时显式传 db 路径：
 #   import sys; sys.path.insert(0, r"<本目录>"); from search_assets import search
 #   search(r"<asset_library_nas.db 路径>", "开门", top_k=8)
+# 同义词扩展需 DashScope key：环境变量 DASHSCOPE_API_KEY（无 key 自动降级原词检索，不报错）。
 # ──────────────────────────────────────────────────────────────
 """资产表检索：FTS5 全文 + 中文类别 LIKE + LLM 同义词扩展。
 
@@ -14,6 +16,7 @@
 from __future__ import annotations
 
 import json
+import os
 import random
 import re
 import sqlite3
@@ -75,8 +78,19 @@ class AssetHit:
 
 
 def _api_key() -> str:
-    cfg = json.loads((Path.home() / ".workbuddy" / "iris-config.json").read_text(encoding="utf-8"))
-    return cfg["dashscope_api_key"]
+    """取 DashScope key：环境变量 DASHSCOPE_API_KEY 优先，其次本目录 config.json 的 retrieval.api_key。
+    都取不到时抛异常——expand_query 会捕获并降级为原词拆分，检索仍可用（无同义词扩展）。"""
+    env = os.environ.get("DASHSCOPE_API_KEY")
+    if env:
+        return env
+    try:
+        cfg = json.loads((BASE_DIR / "config.json").read_text(encoding="utf-8"))
+        key = cfg.get("retrieval", {}).get("api_key")
+        if key:
+            return key
+    except Exception:  # noqa: BLE001
+        pass
+    raise RuntimeError("未配置 DashScope key：设环境变量 DASHSCOPE_API_KEY，或在 config.json 的 retrieval.api_key 填入")
 
 
 def expand_query(query: str) -> tuple[list[str], list[str]]:
@@ -89,15 +103,15 @@ def expand_query(query: str) -> tuple[list[str], list[str]]:
         ],
         "temperature": 0.2,
     }
-    req = urllib.request.Request(
-        CHAT_URL,
-        data=json.dumps(body).encode(),
-        headers={
-            "Authorization": f"Bearer {_api_key()}",
-            "Content-Type": "application/json",
-        },
-    )
     try:
+        req = urllib.request.Request(
+            CHAT_URL,
+            data=json.dumps(body).encode(),
+            headers={
+                "Authorization": f"Bearer {_api_key()}",
+                "Content-Type": "application/json",
+            },
+        )
         with urllib.request.urlopen(req, timeout=30) as r:
             resp = json.loads(r.read().decode())
         content = resp["choices"][0]["message"]["content"]
@@ -399,7 +413,16 @@ def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_
 if __name__ == "__main__":
     import sys
 
-    db = str(BASE_DIR / "index" / "asset_library.db")
+    # 资产表按布局回退（CLI 直跑找库）：本包 pipeline\ 平铺 → NAS _索引\ 分发
+    # （NAS 版 db 与引擎同目录）→ 工程侧 scripts\ 旁的 assets\ → 原机 index\ 子目录
+    candidates = [
+        BASE_DIR / "asset_library.db",
+        BASE_DIR / "asset_library_nas.db",
+        BASE_DIR.parent / "assets" / "asset_library_nas.db",
+        BASE_DIR / "index" / "asset_library.db",
+    ]
+    _db = next((p for p in candidates if p.exists()), candidates[0])
+    db = str(_db)
     for q in sys.argv[1:] or ["sea"]:
         print(f"== 查询: {q} ==")
         for h in search(db, q, top_k=5, debug=True):
