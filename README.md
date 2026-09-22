@@ -66,6 +66,7 @@ claude -p "执行 /贴轨 D:\reaper工程\<工程名>\reports\ep03.md" --output-
 
 ## 更新日志
 
+- **2026-09-22**：video-action-analysis 立「全片环境判断」条款（报告必写全片时空底色 + 候选环境底衬声方向，如风噪/风吹树叶草地；模板同步加节）
 - **2026-09-21**：skill 同步入库（video-action-analysis 抽帧默认 480p 省 token；pitfalls 去个人化）；`scripts\search_assets.py` 按交接包新版统一（key 走 `DASHSCOPE_API_KEY` 环境变量、无 key 降级原词检索、CLI 四布局自动找库，修复无 key 崩溃）；立「同步即入库」条款，日志落本页
 - **2026-09-20**：NAS 通用版资产表 + 新用户首次引导 `/开始`
 - **2026-09-20**：初始备份提交
