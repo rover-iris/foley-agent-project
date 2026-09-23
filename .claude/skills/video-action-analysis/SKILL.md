@@ -19,7 +19,7 @@ description: 视频逐秒动作分析报告的完整流程与出厂门禁。为�
 - ffmpeg / ffprobe（PATH 内）
 - 本 skill 自带脚本：
   - `scripts/extract_frames.py` — 抽帧 + 生成 manifest.json（秒↔帧权威映射，双轮时长复核；默认 480p 出帧省 token）
-  - `scripts/check_report.py` — 出厂门禁（合并行/行数/空洞/统计凑数/帧存在性/人名/章节齐全）
+  - `scripts/check_report.py` — 出厂门禁（合并行/行数/空洞/统计凑数/帧存在性/人名/章节齐全）。帧引用判定要求 `s` 前不紧跟字母/数字/下划线——加密窗口目录名（frames_dens_0_2 等）不得被误判为帧引用
 - 视觉判读：多模态原生读图（Read 逐张看图）
 
 ## 流程（三段式，段段落盘）

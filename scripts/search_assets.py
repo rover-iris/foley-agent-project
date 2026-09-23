@@ -1,12 +1,3 @@
-# ── 同步副本说明（2026-09-20 随 NAS 版资产表分发；2026-09-21 更新）────────────
-# 本文件是 交接包\scripts\pipeline\search_assets.py 的副本，供没有交接包的机器
-# 通过 NAS _索引\（或工程 scripts\）使用检索引擎。更新以交接包原件为源：改原件后重新分发两处副本。
-# CLI 直跑自动按布局找库（同目录 asset_library(_nas).db / 旁级 assets\ / 原机 index\）；
-# 作为模块用时显式传 db 路径：
-#   import sys; sys.path.insert(0, r"<本目录>"); from search_assets import search
-#   search(r"<asset_library_nas.db 路径>", "开门", top_k=8)
-# 同义词扩展需 DashScope key：环境变量 DASHSCOPE_API_KEY（无 key 自动降级原词检索，不报错）。
-# ──────────────────────────────────────────────────────────────
 """资产表检索：FTS5 全文 + 中文类别 LIKE + LLM 同义词扩展。
 
 - expand_query(query)：LLM 把查询扩展成英文音效关键词集（sea → sea,ocean,wave,shore,water...）
@@ -162,8 +153,9 @@ def series_variants(conn: sqlite3.Connection, name: str) -> list[str]:
     return [r[0] for r in rows]
 
 
-def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_theme: str = "通用") -> list[AssetHit]:
-    """检索。scene_theme：'通用'/'写实'/'玄幻'——题材感知过滤（写实排除中国风玄幻系）。"""
+def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_theme: str = "通用", genre: str = "") -> list[AssetHit]:
+    """检索。scene_theme：'通用'/'写实'/'玄幻'——题材感知过滤（写实排除中国风玄幻系）。
+    genre：作品题材（玄幻/魔幻/古风...）——命中 config genre_domain_block 的对域素材降权压末位。"""
     conn = sqlite3.connect(db_path)
     try:
         # 低优先级分类（用户几乎不用，检索降权）
@@ -171,8 +163,10 @@ def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_
             _cfg = json.loads((BASE_DIR / "config.json").read_text(encoding="utf-8"))
             low_pri = _cfg["library"].get("low_priority_categories", [])
             action_packs = _cfg["library"].get("action_packs", {})
+            domain_tags = _cfg["library"].get("domain_tags", {})
+            genre_block = _cfg["library"].get("genre_domain_block", {})
         except Exception:  # noqa: BLE001
-            low_pri, action_packs = [], {}
+            low_pri, action_packs, domain_tags, genre_block = [], {}, {}, {}
         terms, exclude_terms = expand_query(query)
         if debug:
             print(f"[扩展] {query} -> {terms}")
@@ -315,6 +309,15 @@ def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_
                 continue
             if scene_theme == "玄幻" and theme == "中国风":
                 score += 0.5
+            # 题材域降权（2026-09-23 试行）：genre 命中的对域素材压到候选末位（降权非排除，宁可末位不空手）
+            if genre and genre in genre_block:
+                for _dom in genre_block[genre]:
+                    _tags = domain_tags.get(_dom, {})
+                    if official in _tags.get("officials", []) or category in _tags.get("categories", []):
+                        score -= 8
+                        if debug:
+                            print(f"  [域降权] {name[:40]} <- {official or category}（{genre}避{_dom}域）")
+                        break
             # 排除词过滤：短语（含空格）→ 子串匹配；单词 → 前缀互匹
             # 防误杀：'car door open' 是短语→子串匹配，不会因含 door 而毙掉整个门分类
             if exclude_terms:

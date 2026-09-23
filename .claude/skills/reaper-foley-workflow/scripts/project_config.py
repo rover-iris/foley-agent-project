@@ -34,6 +34,7 @@ def cmd_init(a):
     if a.tracks:
         s, e = a.tracks.split(":")
         cfg["tracks"]["action_children"] = [int(s), int(e)]
+    cfg["genre"] = a.genre or ""
     cfg["region_csv"] = a.region_csv or ""
     if os.path.exists(a.out) and not a.force:
         raise SystemExit(f"{a.out} 已存在；确认覆盖请加 --force")
@@ -91,6 +92,7 @@ def main():
     p.add_argument("--export-dir")
     p.add_argument("--work-dir")
     p.add_argument("--tracks", help="动作组子轨区间，如 14:29")
+    p.add_argument("--genre", help="作品题材（玄幻/魔幻/古风/科幻...），检索管线按域标签降权对域素材")
     p.add_argument("--region-csv")
     p.add_argument("--host", default="127.0.0.1")
     p.add_argument("--port", type=int, default=2308)

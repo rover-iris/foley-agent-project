@@ -127,7 +127,7 @@ RPR.SetMediaItemTakeInfo_Value(take, 'D_STARTOFFS', off)   # ← 见 3.3
 RPR.SetMediaItemInfo_Value(item, 'D_VOL', vol)             # item 级 D_VOL 同样是线性值
 RPR.SetMediaItemInfo_Value(item, 'D_FADEOUTLEN', fadeout)
 RPR.SetMediaItemInfo_Value(item, 'D_FADEINLEN', fadein)    # 不入淡可不设
-RPR.GetSetMediaItemTakeInfo_String(take, 'P_NAME', label, True)  # 写标签，人工核对全靠它
+RPR.GetSetMediaItemTakeInfo_String(take, 'P_NAME', stem, True)  # stem=源文件名去扩展名（foley 口径：条目名=源文件名，按包定位音源）；不设则画面里 item 无标签
 ```
 
 ### 3.3 🔴 start_offset 必须显式写 D_STARTOFFS
@@ -146,7 +146,7 @@ RPR.GetSetMediaItemTakeInfo_String(take, 'P_NAME', label, True)  # 写标签，�
 
 ### 3.6 防重（幂等）
 
-贴之前扫目标区间已有 item：`P_NAME(标签) 相同 且 |位置差| < 0.05s` → 已存在，跳过。段错误后直接重跑不贴重。副作用：新增计数会显示 0——所以成败靠区间对账，不靠计数。
+贴之前扫目标区间已有 item：`源文件名(P_NAME) 相同 且 |位置差| < 0.15s` → 已存在，跳过。段错误后直接重跑不贴重。副作用：新增计数会显示 0——所以成败靠区间对账，不靠计数。
 
 ---
 

@@ -22,7 +22,7 @@ from pathlib import Path
 
 ENV_RE = re.compile(r"底衬|留环境|环境底")
 DISCRETE_RE = re.compile(r"起手|落点|收尾|impact|movement|whoosh|命中|入水|落地")
-FRAME_RE = re.compile(r"[sS]_(\d+)")
+FRAME_RE = re.compile(r"(?<![A-Za-z0-9_])[sS]_(\d+)")  # s 前不得紧跟字母/数字/下划线：防 frames_dens_0_2 等加密窗口目录名被误判为帧引用 s_000
 
 
 def parse_time_cell(cell):

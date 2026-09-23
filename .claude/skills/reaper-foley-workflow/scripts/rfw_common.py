@@ -51,6 +51,7 @@ CONFIG_TEMPLATE = {
     "library": {"path_prefix": "", "note": "音源实体根目录前缀；与 DB path 前缀一致则可直接用"},
     "tracks": {"action_children": [14, 29], "note": "动作组子轨索引区间 [起, 止)，以实测轨序为准",
                "layout_note": ""},
+    "genre": "",
     "region_csv": "",
 }
 
