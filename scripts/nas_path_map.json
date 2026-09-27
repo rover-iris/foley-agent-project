@@ -1,25 +1,39 @@
 {
   "_comment": "本地资产表 → NAS 版路径映射规则（make_nas_asset_db.py 读取）。literal=相对路径前缀字面替换（按 match 长度降序尝试）；re=正则替换（literal 全部未中再按序尝试）。fallback_roots=直验未命中时按文件名索引兜底搜索的 NAS 子树（相对 nas_root）。规则调整后重跑生成器即可。",
-  "source_db": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260907\\scripts\\pipeline\\asset_library.db",
+  "source_db": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260923\\scripts\\pipeline\\asset_library.db",
   "local_prefix": "D:\\音效文件\\",
   "nas_root": "\\\\192.168.9.251\\音效2\\资源库",
   "nas_index_dir": "\\\\192.168.9.251\\音效2\\资源库\\_索引",
-  "pipeline_dir": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260907\\scripts\\pipeline",
+  "pipeline_dir": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260923\\scripts\\pipeline",
   "db_filename": "asset_library_nas.db",
   "rules": [
+    {
+      "name": "huhu-duang",
+      "type": "literal",
+      "match": "huhu~duang!\\",
+      "replace": "huhu~duang! 转场碰撞设计音效\\",
+      "fallback_roots": [
+        "huhu~duang! 转场碰撞设计音效"
+      ],
+      "_note": "2026-09-27 制作人指定转场/冲击参考包；NAS 目录名带中文后缀。咻咻咻、过场 NAS 无对应目录，无规则→剔除去存疑清单（个人整理本地包）"
+    },
     {
       "name": "robotic-lifeforms",
       "type": "literal",
       "match": "Sound Morph\\33 Sound Morph - Robotic Lifeforms 2【机器人变形金刚机械生命体音效-第2辑】\\SoundMorph - Robotic Lifeforms 2\\",
       "replace": "SoundMorph - Robotic Lifeforms 2\\",
-      "fallback_roots": ["SoundMorph - Robotic Lifeforms 2"]
+      "fallback_roots": [
+        "SoundMorph - Robotic Lifeforms 2"
+      ]
     },
     {
       "name": "matter-mayhem",
       "type": "literal",
       "match": "Sound Morph\\(爆炸坍塌)SoundMorph - Matter Mayhem\\",
       "replace": "Sound Morph(已翻译)\\(爆炸坍塌)SoundMorph - Matter Mayhem\\",
-      "fallback_roots": ["Sound Morph(已翻译)\\(爆炸坍塌)SoundMorph - Matter Mayhem"],
+      "fallback_roots": [
+        "Sound Morph(已翻译)\\(爆炸坍塌)SoundMorph - Matter Mayhem"
+      ],
       "_note": "NAS 版目录与文件名均追加【中文注释】，直拼必失败，靠去注释文件名兜底（实测 2026-09-20）"
     },
     {
@@ -28,14 +42,18 @@
       "pattern": "^设计音效\\s*《(.+?)》([^\\\\]*)\\\\",
       "replace": "张煜\\\\声羽拾光\\\\设计音效《\\1》\\2\\\\",
       "_note": "组2 兜住《法术》二 这类 》后带序号的目录名（2026-09-20 全量跑 no-rule 54 条教训）",
-      "fallback_roots": ["张煜\\声羽拾光"]
+      "fallback_roots": [
+        "张煜\\声羽拾光"
+      ]
     },
     {
       "name": "jiahua-weapon",
       "type": "literal",
       "match": "加花音效《武器》\\",
       "replace": "张煜\\声羽拾光\\加花音效《功法-剑气》\\",
-      "fallback_roots": ["张煜\\声羽拾光"]
+      "fallback_roots": [
+        "张煜\\声羽拾光"
+      ]
     },
     {
       "name": "boom-library",
