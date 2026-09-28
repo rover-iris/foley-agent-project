@@ -55,8 +55,8 @@
 - **视频素材路径**：每次任务开工前由制作人现场提供具体位置，不预置、不猜测。
 - **REAPER 工程模板**：工程内权威副本 `templates\模板.rpp`（2026-09-28 制作人条款「一劳永逸」：随本仓库分发，换机/新机直接取用，与原件 sha1 一致 `83aab260fb0ff00d6bb82e0228b4b758618ade3a`）；`C:\Users\Administrator\Desktop\reaper工程模板\模板.rpp` 保留为只读原件。每次新建工程：把模板**另存**进本工程文件夹后再开工，严禁污染模板原件与工程内副本。
 - **音源库（双版本，2026-09-20 起通用化）**：
-  - 本机版：`音效工作流交接包_20260923\scripts\pipeline\asset_library.db`（实测 61,397 条），path 前缀 `D:\音效文件\` 本机有效（2026-09-10 核验通过，详见 `cues\音源库与资产表检查_20260910.md`）。
-  - NAS 通用版：`\\192.168.9.251\音效2\资源库\_索引\asset_library_nas.db`（60,871 条，path 前缀即 NAS 资源库，其他用户零本地依赖）；工程 `assets\` 与交接包 pipeline 另有两处同 sha1 副本。生成器 `scripts\make_nas_asset_db.py` + 规则 `scripts\nas_path_map.json`，映射报告 `cues\资产表NAS版映射报告_20260920.md`（526 条 NAS 真缺失已剔除并进存疑清单）。
+  - 本机版：`音效工作流交接包_20260923\scripts\pipeline\asset_library.db`（实测 61,946 条，2026-09-27 扩容后），path 前缀 `D:\音效文件\` 本机有效（2026-09-10 核验通过，详见 `cues\音源库与资产表检查_20260910.md`）。
+  - NAS 通用版：`\\192.168.9.251\音效2\资源库\_索引\asset_library_nas.db`（61,398 条，2026-09-27 重生成，path 前缀即 NAS 资源库，其他用户零本地依赖）；工程 `assets\` 与交接包 pipeline 另有两处同 sha1 副本。生成器 `scripts\make_nas_asset_db.py` + 规则 `scripts\nas_path_map.json`，映射报告 `cues\资产表NAS版映射报告_20260927.md`（直验 59,971 + 文件名兜底 1,427，剔除 548，命中率 99.12%）。
   - 用哪版由机器配置 `~/.claude/foley_machine_config.json` 决定（`/开始` 生成）；未配置先跑 `/开始`，禁止猜路径。检索引擎 `search_assets.py` 副本在 NAS `_索引\` 与工程 `scripts\`。选材规则照交接包 04 号文档。
 - **环境自检**（REAPER Distant API / reapy_boost / ffmpeg）：挂账，随实际任务推进逐步验证，不提前空跑。`/开始` 只做存在性状态报告，不属空跑。
 
