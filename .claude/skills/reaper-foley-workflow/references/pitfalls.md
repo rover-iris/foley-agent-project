@@ -15,7 +15,7 @@
 | `GetTrackName` 取返回值报错 | 返回元组 | 轨名在 `[1]` |
 | 字符串返回值是空串（不报错） | 缓冲区参数传了 0 | `GetProjectName(proj,"",0)` 这类调用 size 必须传 >0（如 1024）；正确形式是三参 `(proj, buf, sz)`——今天实测 `GetProjectName("",512)` 两参会报 missing p2 |
 | `CountProjectMarkers(0)` 单参调用进程秒退（exit 1 零输出，稳定复现非偶发段错误） | 带可选出参的函数缺省出参位，包装层段崩溃（与 GetProjectName 缺参同类；2026-09-09 实测） | 必须三参 `RPR.CountProjectMarkers(0, 0, 0)`；**只有返回元组第 1 位 retval 是真实总数，其余各位是对入参的回显，不能当计数读**（曾因误读回显 0 重复堆了多个 Region） |
-| `EnumProjectMarkers2` 一调用进程就秒退（本机 reapy_boost 稳定复现） | 包装层崩溃，该函数禁用 | 用无后缀 `EnumProjectMarkers` **全参形式** `RPR.EnumProjectMarkers(i, 0, 0.0, 0.0, "", 0)`，返回 `[retval, idx回显, isrgn, pos, rgnend, name, markrgnidx]`；但 name 出参不被回写（缓冲区传多大都拿不到）——**Region 名（=集号）在线取不到，权威来源是离线解析 RPP（extract_regions.py）**；删 Region 用 `DeleteProjectMarker(0, idx, True)` 按 idx 直删（返回 0=成功，-1=没找到），从高 idx 往下删 |
+| `EnumProjectMarkers2` 一调用进程就秒退（本机 reapy_boost 稳定复现） | 包装层崩溃，该函数禁用 | 用无后缀 `EnumProjectMarkers` **全参形式** `RPR.EnumProjectMarkers(i, 0, 0.0, 0.0, "", 0)`。返回元组**只读数值可信位**：r[0]（retval 总数）、r[2]（isrgn）、r[3]（pos）、r[4]（rgnend）；字符串/索引出参位（含 r[5]）**不回写**、实测返空串，一律不读、禁 `int()`（20260928 实测 r[5] 为空串，`int(r[5])` 直接 ValueError）——**Region 名（=集号）在线取不到，权威来源是离线解析 RPP（extract_regions.py）**，在线对账只按位置比对、不比名称；删 Region 用 `DeleteProjectMarker(0, idx, True)` 按 idx 直删（返回 0=成功，-1=没找到），从高 idx 往下删。附注：官方 ReaScript 签名为 `(retval, markrgnidx, isrgn, pos, rgnend, name, wantmarkeridx)`，该字符串出参位为 name——字段名记载以官方 API 为准，入册以实测现象为准 |
 | `GetSetMediaItemTakeInfo_String` 读条目名拿到的是指针串 | 原始返回元组下标易错；读取时 setNewValue 必须 False | **条目名核验以落盘 RPP 的 NAME 行为准**；写入用 `(tk,'P_NAME',label,True)`（place 骨架原样）不受影响 |
 | extract_regions.py 把 MARKER 内部 idx 当集号 | 批次工程里 idx 恰好=集号所以从未暴露；删建过 Region 的工程 idx 会漂移 | 集号以 Region **名字**为准（place 脚本匹配规则本来就是按 name）；手工归档 CSV 时修正 |
 | `GetMediaSourceLength` 报 missing p1 | 包装层传参 bug | 用 `reapy_boost.Source(id).length()`（是**方法**不是属性） |
@@ -97,6 +97,12 @@ configure_reaper(resource_path=r"<REAPER资源目录>")
 - 往 TRACK 里插入 FXCHAIN：必须 4 空格缩进、紧贴 TRACK 头 `>` 后、无空行——格式不对 REAPER **静默忽略**（FX 不加载、不报错）。
 - 发送：无尖括号行 `AUXRECV <源轨索引> ...`，写在**接收轨**块内。
 - 带空格的轨名必须加引号（`NAME "音频 01"`）；复用真实工程头部拼接新轨块时，外层 `<REAPER_PROJECT` 本来就是开着的，**别按块平衡给头部补 `>`**——多补一个会把工程块提前闭合，后面所有轨块被静默丢弃（打开不报错但 0 轨）。生成后自检：`<TRACK` 计数 = 预期轨数。
+- **region 两行式（REAPER 7.52 实测，20260928）**：region 在 RPP 文本中拆两行——起点行带名+R 标志、终点行 `"" 1` 名空，早期「单行 pos end name flags」格式已不复出现；自写离线解析器必须按两行式按 idx 成对（起点行取名、终点行取 end），按老格式解析会 0 命中。格式版本注记详见 references/new-project.md「直接文本改 RPP 的备选方案」节。
+
+自写 rpp 解析器（复核通道一/审计类工具）三坑（20260928 复核实测）：
+① **NAME 行不一定带引号**——轨名/条目名存在无引号形态，正则不能只认 `NAME "..."`；
+② **SOURCE 是多行块**（`<SOURCE WAVE>` 属性行… `>`），必须按行流式状态机读，不能假设 `<SOURCE ... 文件名>` 单行形态；
+③ **资产 DB 的 name 字段是已去扩展名的 stem，不要再做 `splitext`**——含点版本号会被误剥（`xxx 2.0` 的 `.0` 被当扩展名剥成 `xxx`），对账错配；DB name 一律全串原样比对。
 
 ## 沙箱 / 环境类
 
@@ -118,6 +124,7 @@ configure_reaper(resource_path=r"<REAPER资源目录>")
 | 新集不知道 Region 起点 | `EnumProjectMarkers2` 遍历实测，或 `extract_regions.py` 离线解析；**不要估算** |
 | 长条音效拼接露馅 | silencedetect 边界 5+ = oneshot 序列禁止硬拼；找长连续源取窗 |
 | 同源多处使用听感重复 | 必须取不同时间窗/切段，或换近义音源 |
+| audit_offsets.py `--ep` 恒不命中 / `--base` 单传不生效（20260928 实测） | `--ep` 因在线 Region 名不可读恒不命中（静默退化成 `--base` 无上界全跑）；`--base` 单传不生效（fallback 嵌在 `--ep` 分支内）——现役口径：**全时间线跑 + 全工程断言补上界**；脚本修复挂账下次快照修订 |
 
 ## API 行为备忘
 

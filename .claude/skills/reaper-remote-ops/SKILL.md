@@ -225,6 +225,7 @@ RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER，�
 - 插入 FXCHAIN 到 TRACK 内：必须 4 空格缩进、紧贴 TRACK 头 `>` 后、无空行，否则 REAPER 静默忽略（FX 不加载，不报错）。
 - `ISBUS 1 1` = folder/bus 轨（推子显示 -inf 正常）；`ISBUS 0 0` = 普通轨。
 - 发送：无尖括号行 `AUXRECV <源轨索引> ...`，写在**接收轨**块内。
+- region 在 RPP 文本中拆两行（REAPER 7.52 实测，20260928）：起点行带名+R 标志、终点行 `"" 1` 名空——自写离线解析器必须按两行式按 idx 成对，老单行格式解析 0 命中；格式版本注记详见 `reaper-foley-workflow` skill `references/new-project.md`。
 - 改完保存前先复制原文件备份；REAPER 开着时不要编辑 .rpp。
 
 ---
@@ -245,9 +246,9 @@ RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER，�
 | 字符串返回值是空串 | 缓冲区参数传了 0，改传 1024 |
 | `GetMediaSourceLength` 报错 | 包装层 bug，用 `Source(id).length()` |
 | `os.remove` 被沙箱拦 | 外部 shell rm，脚本内不删文件 |
-| `CountProjectMarkers` 出参误报（20260916 实测） | `(0,0,0)` 返回 [总数, markers, regions, …] 里 markers/regions 在网络通道会恒 0——总数取 [0] 可信，明细一律逐条 `EnumProjectMarkers` 枚举 |
-| `EnumProjectMarkers` 名称出参回显（20260916 实测） | 传入的 name 占位串被原样返回（读不到真名）——对账只比位置不比名称；删 marker 按返回值末位 **marker id**（`AddProjectMarker` 返回值就是 id），**枚举序号≠id**，按序号删曾误删一条 |
+| `EnumProjectMarkers` 非数值出参位返空串（20260916/20260928 两次实测） | 字符串/索引出参在网络通道**不回写**——传入的占位串原样返回（20260928 实测 r[5] 为空串，`int(r[5])` 直接 ValueError）。返回元组**只读数值可信位**：r[0]（retval 总数）、r[2]（isrgn）、r[3]（pos）、r[4]（rgnend）；其余字符串/索引位一律不读、不转换、不参与对账（`CountProjectMarkers` 的 markers/regions 出参位同理误报 0——总数取 r[0] 可信，明细一律逐条 `EnumProjectMarkers` 枚举）。Region 名在线拿不到，名权威 = 离线 RPP 文本解析；在线对账只按位置比对、不比名称；删 marker 按返回值末位 **marker id**（`AddProjectMarker` 返回值就是 id），**枚举序号≠id**，按序号删曾误删一条。附注：官方 ReaScript 签名该字符串出参位为 name——字段名记载以官方 API 为准，入册以实测现象为准 |
 | 建删 Region/markers 正确姿势（20260916 定稿） | 建：`AddProjectMarker(0, 1, pos, end, name, -1)` 返回新 id（≥0 即成功）；删：`DeleteProjectMarkerByIndex(0, 枚举序号)` 前先用 id 核对目标；改完必须 `Main_SaveProjectEx` 落盘并用 .rpp 文本 grep 验证（内存读回不可靠时文件是真值） |
+| reapy_boost 字符串出参返回 list 非 tuple | 解包注意——返回容器类型可能是 list 不是 tuple，解包/索引前先确认实际类型，别按 tuple 假定写死 |
 
 ---
 

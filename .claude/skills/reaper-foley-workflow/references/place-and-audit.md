@@ -86,6 +86,22 @@ take 的 source 赋值可能**交替性丢失**——item 有位置长度但无�
 
 `place_ep26_v1.py` 等旧定稿模板的 CUES 九元组里 vol 列是**真值生效**的（`if vol: SetMediaItemInfo_Value(..., "D_VOL", vol)`），与 skill「一律默认音量」条款相抵。抄任何旧模板时必须二选一：**vol 列全改 1.0**，或**删除 vol 赋值行**。20260916 夜批照抄旧模板 vol 列，531 条被调量返工——旧模板的「已定稿」只代表当年口径，不代表现在。
 
+## rfw_common 导入一律双路径兜底（20260928 实测）
+
+skill 安装副本位置因机而异（工程内 `.claude/skills/` 与全局 `~/.claude/skills/` 不保证同时存在），place / 复核 / 搭建类脚本开头统一写：
+
+```python
+_SKILL_PATHS = [
+    r"<全局副本>\reaper-foley-workflow\scripts",
+    r"<工程内副本>\reaper-foley-workflow\scripts",
+]
+for _p in _SKILL_PATHS:
+    if os.path.isdir(_p):
+        sys.path.insert(0, _p)
+```
+
+禁止单点硬编码一个绝对路径；两处都在时全局优先、工程内兜底，任何一处在即可跑。
+
 ## Base 实测（每集开始）
 
 ```python

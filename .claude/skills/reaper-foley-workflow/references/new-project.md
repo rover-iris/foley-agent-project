@@ -64,6 +64,11 @@ ok, isrg, pos, endpos, name, idx = RPR.EnumProjectMarkers2(0, i)  # 枚举实测
 
 ## 直接文本改 RPP 的备选方案（REAPER 不便启动时）
 
+> **格式版本注记（REAPER 7.52 实测，20260928）**：region 在 RPP 文本中**拆两行**——
+> 起点行 `MARKER <idx> <pos> <name> 1 0 1 R {GUID} 0`（名与 R 标志在起点行）；
+> 终点行 `MARKER <idx> <end> "" 1`（id 与起点行相同、名空）。
+> 早期版本的「单行 pos end name flags」格式已不复出现。任何自写离线解析器必须按两行式**按 idx 成对**（起点行取名、终点行取 end），按老格式解析会 0 命中。`extract_regions.py` 已按此格式实现，直接复用，不要另写。
+
 RPP 是纯文本，Region 在其中形如（成对出现）：
 
 ```
