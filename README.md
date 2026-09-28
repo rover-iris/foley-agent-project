@@ -28,6 +28,7 @@ Claude Code 版「agent 工程文件夹」。在本文件夹启动 Claude Code�
 ├── cues/                       选材/cue 清单/自检/验收产物（含 001 集实测记录）
 ├── scripts/                    工程侧工具（NAS 版资产表生成器、检索引擎副本）
 ├── assets/                     资产表 NAS 版工程内副本（gitignore 不入库）
+├── templates/                  REAPER 工程模板权威副本（随仓库分发，2026-09-28 起）
 ├── sessions/                   REAPER 工程
 └── exports/                    分轨导出成品
 
@@ -66,6 +67,7 @@ claude -p "执行 /贴轨 D:\reaper工程\<工程名>\reports\ep03.md" --output-
 
 ## 更新日志
 
+- **2026-09-28**：REAPER 工程模板入库——新增 `templates\模板.rpp` 权威副本（与桌面只读原件 sha1 一致 `83aab260…`），换机/新机随仓库直接取用（制作人「一劳永逸」条款）；CLAUDE.md 模板条款 + 双 README 架构树同步
 - **2026-09-28**：批次多集任务工作法入库——SOP 新节「批次多集任务工作法」（任务工作区集中制 / 一工程多集 Region 分集 + 批次 manifest 数值权威 / 流水线交错作业，并发仍 ≤2 路）；CLAUDE.md 落盘条款扩展为批次全产物集中制
 
 - **2026-09-27**：资产表扩容——huhu~duang! + 咻咻咻、过场入库（本地 61,946 / NAS 61,398，三副本 sha1 一致），nas_path_map 断链修复 + huhu-duang 规则，映射报告落 cues/
