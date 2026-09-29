@@ -1,10 +1,10 @@
 {
   "_comment": "本地资产表 → NAS 版路径映射规则（make_nas_asset_db.py 读取）。literal=相对路径前缀字面替换（按 match 长度降序尝试）；re=正则替换（literal 全部未中再按序尝试）。fallback_roots=直验未命中时按文件名索引兜底搜索的 NAS 子树（相对 nas_root）。规则调整后重跑生成器即可。",
-  "source_db": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260923\\scripts\\pipeline\\asset_library.db",
+  "source_db": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260929\\scripts\\pipeline\\asset_library.db",
   "local_prefix": "D:\\音效文件\\",
   "nas_root": "\\\\192.168.9.251\\音效2\\资源库",
   "nas_index_dir": "\\\\192.168.9.251\\音效2\\资源库\\_索引",
-  "pipeline_dir": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260923\\scripts\\pipeline",
+  "pipeline_dir": "C:\\Users\\Administrator\\Desktop\\音效工作流交接包_20260929\\scripts\\pipeline",
   "db_filename": "asset_library_nas.db",
   "rules": [
     {

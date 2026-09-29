@@ -61,13 +61,12 @@
 
 ```python
 proj_id = RPR.EnumProjects(-1, "", 1024)[0]           # 当前工程指针（-1=active）
-RPR.Main_SaveProjectEx(proj_id, r"<工程完整路径>.RPP", 0)  # 显式传完整路径最稳
-RPR.GetSetProjectInfo(0, 'PROJECT_ISDIRTY', 0, True)  # 强制清假阳性 dirty
-RPR.Main_OnCommand(40004, 0)                          # File: Quit REAPER，无弹窗
+RPR.Main_SaveProjectEx(proj_id, r"<工程完整路径>.RPP", 0)  # 显式传完整路径最稳（API 直存无窗口）
+RPR.Main_OnCommand(40004, 0)                          # File: Quit REAPER
 ```
 
 - `Main_SaveProject(0)` 在 reapy 里缺参会报错，用 `Main_SaveProjectEx`；`Main_SaveProjectEx` 历史上还有过「只存单轨」的 bug 记录——**保存后必须落盘验证**：RPP 文件 mtime 刷新 + 文件内容里 grep 得到本次新增的东西。
-- 保存验收两步：① `IsProjectDirty` 由 1 变 0；② REAPER 窗口标题的 `[modified]` 消失。
+- dirty 假阳性为 REAPER 7.52 已知行为（落盘成功后 IsProjectDirty 可恒 1、窗口[已修改]不消失），`GetSetProjectInfo` 清零法无效——保存验收以「mtime + 内容 verify（重解析比对）」双证为准，dirty 与窗口[已修改]不作判据。另存类交互命令（`Main_OnCommand(40022)` 系）禁用——必弹二级窗；`40021`（当前名原地保存）为候选兜底，实测确认无弹窗前禁用。
 - `GetProjectPathEx` 返回的是 `...\工程目录\Media`，工程文件在**上一级**。
 - 轮询 tasklist 确认真退出（进程还在 = 弹窗挡住了）。落盘验证别只信 dirty 标志。
 

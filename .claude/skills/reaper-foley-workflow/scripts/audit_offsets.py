@@ -26,7 +26,7 @@ def main():
     ap.add_argument("--tracks", help="如 14:29；缺省取 config；--all-tracks 时忽略")
     ap.add_argument("--all-tracks", action="store_true")
     ap.add_argument("--ep", type=int, help="只审某集 Region 区间")
-    ap.add_argument("--base", type=float, help="配合 --ep 手填 base")
+    ap.add_argument("--base", type=float, help="审计起点秒数；配合 --ep 时为 Region 未命中的兜底，也可单独传")
     ap.add_argument("--host", default="127.0.0.1")
     a = ap.parse_args()
 
@@ -50,8 +50,14 @@ def main():
             if e == a.ep:
                 lo_s, hi_s = pos - 0.01, end
                 break
-        if lo_s is None and a.base:
-            lo_s, hi_s = a.base - 0.01, None
+        if lo_s is None:
+            if a.base:
+                lo_s, hi_s = a.base - 0.01, None
+                print(f"⚠️ 未找到集 {a.ep} 的 Region，退回 --base {a.base} 起审")
+            else:
+                sys.exit(f"❌ 未找到集 {a.ep} 的 Region 且未传 --base，拒绝静默退化为全时间线审计；核对集号后重跑")
+    elif a.base:
+        lo_s, hi_s = a.base - 0.01, None
 
     print(f"=== 越界审计：轨 {lo}~{hi - 1}"
           f"{'，区间 ' + str((lo_s, hi_s)) if lo_s is not None else '，全时间线'} ===")

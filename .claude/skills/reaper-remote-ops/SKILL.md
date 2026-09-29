@@ -203,14 +203,16 @@ for trk in 目标轨:
 
 ```python
 proj_id = RPR.EnumProjects(-1, "", 0)[0]              # 当前工程指针（-1=active）
-RPR.Main_SaveProjectEx(proj_id, r"工程完整路径.RPP", 0)  # 显式传完整路径最稳
-RPR.GetSetProjectInfo(proj_id, 'PROJECT_ISDIRTY', 0, True)  # 清假阳性 dirty 标志
-RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER，实测无弹窗
+RPR.Main_SaveProjectEx(proj_id, r"工程完整路径.RPP", 0)  # 显式传完整路径最稳（API 直存无窗口）
+RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER
 ```
 
+**保存只走 API，不走交互命令（2026-09-29 制作人条款）**：一切会弹二级窗口的交互式保存命令（`Main_OnCommand(40022)` 另存为系）禁用——弹窗内容无法程序化判断，且可能改写工程路径。标准保存一律 `Main_SaveProjectEx`（API 直存无窗口）。
+
+**dirty 假阳性为 REAPER 7.52 已知行为**：`Main_SaveProjectEx` 落盘成功（mtime 刷新、内容正确）后 IsProjectDirty 可恒为 1、窗口[已修改]不消失，`GetSetProjectInfo` 清零无效。保存验收以「文件 mtime + 内容 verify（重解析比对）」双证为准，不以 dirty 标志为准。`40021`（当前名原地保存）为候选兜底，实测确认无弹窗前禁用。
+
 - 实测记录：`Main_SaveProject(0)` 直传 0 曾报缺参；传 `EnumProjects(-1,...)[0]` 的真实指针 + `Main_SaveProjectEx` 显式路径是组合最稳的写法。历史上 `Main_SaveProjectEx` 还有过「只存单轨」的 bug 记录——**保存后必须落盘验证**（文件时间戳刷新 + .rpp 里 grep 到本次新增内容）。
-- 保存验收两步：① `IsProjectDirty` 由 1 变 0；② REAPER 窗口标题 `[modified]` 消失（`tasklist /V /FI "IMAGENAME eq reaper.exe" /FO CSV` 可查）。
-- 退出弹「是否保存」窗 = dirty 标志假阳性（保存后标志没自动清）→ 用上面 `GetSetProjectInfo(...,'PROJECT_ISDIRTY',0,True)` 强制清零再退出。
+- 保存验收双证：文件 mtime 刷新 + .rpp 重解析逐条比对（内容 verify）；dirty 标志与窗口[已修改]不作判据。退出弹「是否保存」窗即此假阳性——静默退出兜底命令待实测（40021 候选），实测前出弹窗人工处置。
 - ⚠️ 缓冲区参数必须 >0：`GetProjectName(proj,"",0)` / `GetProjectPathEx(proj,"",0)` 传 0 会**返回空串**（不报错）。传 1024。
 - ⚠️ `GetProjectPathEx` 返回的是 `...\工程目录\Media`，工程文件在**上一级**。
 
@@ -242,7 +244,8 @@ RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER，�
 | `GetTrackUIVolPan` 取 [1] 报错 | 返回 (retval, track*, vol, pan)，vol 在 [2] |
 | 渲染循环全 0MB | 用了异步的 42230，换同步的 41824 |
 | 分轨文件正常但内容静音 | stems 模式 bug → 改 solo-loop；或渲染被人碰过 → 重渲 |
-| 退出弹「是否保存」 | 保存后 dirty 假阳性没清 → GetSetProjectInfo 清零再 40004 |
+| 退出弹「是否保存」 | dirty 假阳性（7.52）无程序化清零法；静默退出兜底待实测（40021 候选），出弹窗人工处置 |
+| `SaveProjectEx` 后 dirty 恒 1、[已修改]不消失；40022 兜底弹二级窗 | 清零法无效；验收改「mtime+内容 verify」双证；40021 候选待实测，实测前禁用 |
 | 字符串返回值是空串 | 缓冲区参数传了 0，改传 1024 |
 | `GetMediaSourceLength` 报错 | 包装层 bug，用 `Source(id).length()` |
 | `os.remove` 被沙箱拦 | 外部 shell rm，脚本内不删文件 |
