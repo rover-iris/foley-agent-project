@@ -123,16 +123,16 @@ UPDATE assets SET path = replace(path, '<旧前缀>', '<新前缀>') WHERE path 
 
 > 🔴 **20260916 复发记录**：夜批派单沿用了外部旧 SOP 里的 vol 经验值，抄 `place_ep26_v1.py` 这类**旧模板**时 vol 列真值被写进 D_VOL，531 条被调量返工。教训：旧 place 模板的 vol 行不是引擎——**抄任何旧模板前先检查并清除 vol 赋值逻辑**（vol 一律写 1.0 或整列删除）；skill 条款与外部文档冲突时按铁律 8/11 处理（废止旧值+上报，不得照抄）。
 
-## 布料摩擦选材：按动作幅度分档
+## 力度对位：动作幅度与素材能量分档
 
-布料声质感必须与动作幅度同量级——大幅配 whoosh、微动配摩擦，错档即出戏。
+选材首先是**力度选择**——素材的能量档必须与画面动作的幅度同档，错档即出戏：音色再贴切，量级错了就是错的（问3「力度/质感对位」在动作类素材的落地，与撞击类的强度词校验互补）。whoosh 系是高能量素材（气流甩动/打击系设计）——**含 Whoosh Cloth、Textile Whoosh 等名字带布料的素材**；movement / rustle 系（摩擦、窸窣）才是日常微动作的量级。
 
-| 动作档 | 典型动作 | 词族 |
+| 动作幅度 | 典型动作 | 词族 |
 |---|---|---|
 | 日常微动作（对话级人体活动） | 转身、坐起、抬手、合掌示意、抚胸、整理衣物 | **movement / rustle**（CLOTHMvmt、CLOTHFlp、CC-CK Movement Cloth、fabric/clothing rustle 类） |
 | 明显大幅度（肢体高速位移） | 出拳、甩手、急转冲出 | whoosh 词族 |
 
-微动作档禁用 whoosh 词族——Whoosh Cloth / Textile Whoosh 等为打击系设计，配对话级动作出戏。movement 候选先穷尽（CLOTH 前缀直查 + movement/rustle 词族扩展）再谈缺口；同源 ≤2 额度按词族独立计数。
+微动作档禁用 whoosh 词族补位。movement 候选先穷尽（CLOTH 前缀直查 + movement/rustle 词族扩展）再谈缺口；同源 ≤2 额度按词族独立计数。
 
 ## 过渡fx 选材三判
 
