@@ -93,7 +93,7 @@ json.dump(state, open("fader_backup.json", "w", encoding="utf-8"), ensure_ascii=
 # 恢复后逐轨 diff 校验，确认全部写回
 ```
 
-### 2.3 🔴 D_VOL 是线性值不是 dB（血泪教训）
+### 2.3 🔴 D_VOL 是线性值不是 dB
 
 0=静音、1=0dB、2=+6dB。**别做 lin2db 换算后传入**——负数会把推子打成 -inf（界面显示推子到底）。「推子归零」= 写 `D_VOL=1.0`（unity），不是 0。
 

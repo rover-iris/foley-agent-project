@@ -30,7 +30,7 @@
 
 ## 🔴 引擎级坑：D_STARTOFFS 必须显式写
 
-`AddMediaItemToTrack + AddTakeToMediaItem + SetMediaItemTake_Source` 走完后 item 从源 0 秒开始播。**start_offset 只传给取窗逻辑而不写 take 属性 = 等于没生效**——历史上有八集 116 条 cue 因此取窗全部失效（off=0）。新代码必须带：
+`AddMediaItemToTrack + AddTakeToMediaItem + SetMediaItemTake_Source` 走完后 item 从源 0 秒开始播。**start_offset 只传给取窗逻辑而不写 take 属性 = 等于没生效**。新代码必须带：
 
 ```python
 if off:

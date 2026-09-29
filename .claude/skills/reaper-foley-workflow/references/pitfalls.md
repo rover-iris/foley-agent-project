@@ -13,7 +13,7 @@
 | 保存后退出仍弹「是否保存」 | PROJECT_ISDIRTY 假阳性 | 见下方「保存与关闭」完整流程 |
 | `GetTrackUIVolPan` 取 [1] 报错 | 返回四元组 `(retval, track*, vol, pan)` | vol 在 `[2]`，pan 在 `[3]` |
 | `GetTrackName` 取返回值报错 | 返回元组 | 轨名在 `[1]` |
-| 字符串返回值是空串（不报错） | 缓冲区参数传了 0 | `GetProjectName(proj,"",0)` 这类调用 size 必须传 >0（如 1024）；正确形式是三参 `(proj, buf, sz)`——今天实测 `GetProjectName("",512)` 两参会报 missing p2 |
+| 字符串返回值是空串（不报错） | 缓冲区参数传了 0 | `GetProjectName(proj,"",0)` 这类调用 size 必须传 >0（如 1024）；正确形式是三参 `(proj, buf, sz)`——实测 `GetProjectName("",512)` 两参会报 missing p2 |
 | `CountProjectMarkers(0)` 单参调用进程秒退（exit 1 零输出，稳定复现非偶发段错误） | 带可选出参的函数缺省出参位，包装层段崩溃（与 GetProjectName 缺参同类；2026-09-09 实测） | 必须三参 `RPR.CountProjectMarkers(0, 0, 0)`；**只有返回元组第 1 位 retval 是真实总数，其余各位是对入参的回显，不能当计数读**（曾因误读回显 0 重复堆了多个 Region） |
 | `EnumProjectMarkers2` 一调用进程就秒退（本机 reapy_boost 稳定复现） | 包装层崩溃，该函数禁用 | 用无后缀 `EnumProjectMarkers` **全参形式** `RPR.EnumProjectMarkers(i, 0, 0.0, 0.0, "", 0)`。返回元组**只读数值可信位**：r[0]（retval 总数）、r[2]（isrgn）、r[3]（pos）、r[4]（rgnend）；字符串/索引出参位（含 r[5]）**不回写**、实测返空串，一律不读、禁 `int()`（20260928 实测 r[5] 为空串，`int(r[5])` 直接 ValueError）——**Region 名（=集号）在线取不到，权威来源是离线解析 RPP（extract_regions.py）**，在线对账只按位置比对、不比名称；删 Region 用 `DeleteProjectMarker(0, idx, True)` 按 idx 直删（返回 0=成功，-1=没找到），从高 idx 往下删。附注：官方 ReaScript 签名为 `(retval, markrgnidx, isrgn, pos, rgnend, name, wantmarkeridx)`，该字符串出参位为 name——字段名记载以官方 API 为准，入册以实测现象为准 |
 | `GetSetMediaItemTakeInfo_String` 读条目名拿到的是指针串 | 原始返回元组下标易错；读取时 setNewValue 必须 False | **条目名核验以落盘 RPP 的 NAME 行为准**；写入用 `(tk,'P_NAME',label,True)`（place 骨架原样）不受影响 |
@@ -123,7 +123,7 @@ configure_reaper(resource_path=r"<REAPER资源目录>")
 | 新集不知道 Region 起点 | `EnumProjectMarkers2` 遍历实测，或 `extract_regions.py` 离线解析；**不要估算** |
 | 长条音效拼接露馅 | silencedetect 边界 5+ = oneshot 序列禁止硬拼；找长连续源取窗 |
 | 同源多处使用听感重复 | 必须取不同时间窗/切段，或换近义音源 |
-| audit_offsets.py `--ep` 恒不命中 / `--base` 单传不生效（20260928 实测） | `--ep` 因在线 Region 名不可读恒不命中（静默退化成 `--base` 无上界全跑）；`--base` 单传不生效（fallback 嵌在 `--ep` 分支内）——现役口径：**全时间线跑 + 全工程断言补上界**；脚本修复挂账下次快照修订 |
+| audit_offsets.py 集号/起点参数用法（20260929 修复） | `--ep` 未命中 Region 且未传 `--base` 时直接报错退出（拒绝静默退化为全时间线审计）；`--base` 可单独传定审计起点，配合 `--ep` 时作未命中兜底 |
 
 ## API 行为备忘
 

@@ -52,9 +52,9 @@ python scripts/run_reaper_script.py --lua 导入视频.lua
 - 视频条目不自动建峰值；画面在 View → Video window（Ctrl+Shift+V）。
 - RPC 逐条插视频（`PCM_Source_CreateFromFile` 等）在本机实测不稳定——**不要回退到那条路**。
 
-## ⚠️ 20260916 反面案例：API 直贴 30 集漏建 Region
+## ⚠️ 补建 Region（API 直贴路径的必做收尾）
 
-夜批为省事走了 reapy API 逐条直插（30/30 条目成功），但**没走本流程 → 没建 Region**——制作人标尺上没有逐集选区，验收即投诉。结论：
+API 直贴只插条目不建 Region——标尺上没有逐集选区，验收即不完整（20260916 反面案例：API 直贴 30 集漏建 Region）。结论：
 
 - 视频+Region 的定稿路线仍是**本流程（Lua 驱动，插条目与建 Region 同批幂等）**；
 - 因故走了 API 直贴的，**补建 Region 是必做收尾步骤**：用 `scripts/create_video_regions.py`（20260916 定稿，按轨 0 条目位置/长度逐集建 Region，幂等按位置对账补缺，建完自动保存；包装层坑已内置规避——对账只比位置不比名称）；
