@@ -129,7 +129,7 @@ configure_reaper(resource_path=r"<REAPER资源目录>")
 
 - `D_VOL`（轨/item）是**线性值**：1=0dB，2=+6dB；设负数 = 推子 -inf。别做 lin2db 转换。
 - bus/folder 轨（ISBUS=1）推子显示 -inf 是正常态。
-- API 创建的 item 不自动建 peaks 缓存，波形显示需手动触发重建。
+- API 创建的 item 不自动建 peaks 缓存（20261007 实测 62/99 条缺峰）。**place 模板已内置批量建峰**（`build_peaks()`，官方 `PCM_Source_BuildPeaks` 三段式 mode0→1→2 + UpdateArrange，REAPER 6.35+，mode0 返回 0 自动跳过故幂等，贴完自动跑）；手动「峰值→构建峰值」仅作兜底。注意 mode2 只能在 mode1 归 0 后调，提前调显示残缺峰。
 - reapy_boost 的 reascript_api 对部分指针/缓冲参数函数有传参 bug，优先用对象方法（`Source.length()`、`src.filename`）。
 - 指针有效性判断：正则取 `0x` 后十六进制判非零，别用 `"0x0" in str(id)`。
 - `AddProjectMarker(0, True, pos, end, name, -1)` 建 Region；`EnumProjectMarkers2` 返回 `(retval, isrg, pos, endpos, name, idx)`。

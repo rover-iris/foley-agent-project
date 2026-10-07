@@ -138,6 +138,34 @@ def self_check(RPR, p, base, base_end, placed, durs):
     return bad
 
 
+def build_peaks(RPR, p, base, base_end):
+    """批量建峰（2026-10-07 制作人拍板固化）。API 创建的 item 不自动建 peaks 缓存，
+    不建则界面无波形（历任批次都要手动「峰值→构建峰值」；1007测试 实测 62/99 条缺峰）。
+    官方三段式（REAPER 6.35+）：mode0 启动（返回 0=已有峰→跳过，天然幂等）→ mode1 推进至 0 → mode2 收尾。
+    mode2 只能在建完后调，提前调会显示残缺峰。"""
+    lo, hi = TRACK_RANGE
+    building = []
+    for ti in range(lo, hi):
+        for it in p.tracks[ti].items:
+            if base - 0.01 <= it.position < (base_end or it.position + 1):
+                tk = RPR.GetActiveTake(it.id)
+                src = tk and RPR.GetMediaItemTake_Source(tk)
+                if src and RPR.PCM_Source_BuildPeaks(src, 0) == 1:
+                    building.append(src)
+    rounds = 0
+    while building and rounds < 120:
+        rounds += 1
+        still = []
+        for s in building:
+            if RPR.PCM_Source_BuildPeaks(s, 1) != 0:
+                still.append(s)
+            else:
+                RPR.PCM_Source_BuildPeaks(s, 2)
+        building = still
+    RPR.UpdateArrange()
+    print(f"建峰完成：{rounds} 轮推进，未收尾 {len(building)}")
+
+
 def main():
     setup_stdout()
     global BASE, TRACK_RANGE
@@ -202,6 +230,7 @@ def main():
     if todo:
         print(f"❌ 两轮后仍失败 {len(todo)} 条：{[c[9][4] for c in todo]}，人工介入")
 
+    build_peaks(RPR, p, base, base_end)  # 贴完即建峰，界面直接出波形
     bad = self_check(RPR, p, base, base_end, len(CUES), durs)
     sys.exit(1 if (bad or todo) else 0)
 
