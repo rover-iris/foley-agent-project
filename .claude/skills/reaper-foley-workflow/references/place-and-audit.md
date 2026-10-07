@@ -54,7 +54,8 @@ RPR.SetMediaItemTakeInfo_Value(take, 'D_STARTOFFS', off)   # ← 上面说的坑
 RPR.SetMediaItemInfo_Value(item, 'D_VOL', 1.0)  # 2026-09-11 制作人口径：一律默认音量
 RPR.SetMediaItemInfo_Value(item, 'D_FADEOUTLEN', fadeout)
 if fadein: RPR.SetMediaItemInfo_Value(item, 'D_FADEINLEN', fadein)
-RPR.GetSetMediaItemTakeInfo_String(take, 'P_NAME', stem, True)   # stem=源文件名去扩展名；不设 P_NAME 条目在画面里无标签
+pname = f"{label} | {stem}" if label else stem   # 2026-10-07 拍板：label（含【待人删】等标注）必须与源名合并落地 P_NAME，只写源名 = 界面无标注（1007测试 返工事故）
+RPR.GetSetMediaItemTakeInfo_String(take, 'P_NAME', pname, True)   # 不设 P_NAME 条目在画面里无标签
 # 贴完立即回读验证 source 没丢；丢了删 item 返回失败
 ```
 
@@ -70,7 +71,7 @@ take 的 source 赋值可能**交替性丢失**——item 有位置长度但无�
 
 ## 防重（幂等，必须保留）
 
-贴之前扫目标区间已有 item：**源文件名（P_NAME）相同 且 |位置差| < 0.15s** 视为已存在，跳过。段错误后直接重跑不会贴重。**副作用：计数器会归零失真——判断成败必须靠区间对账，不是脚本打印的「新增 N 条」。**
+贴之前扫目标区间已有 item：**源文件名相同（P_NAME 中 ` | ` 后的部分）且 |位置差| < 0.15s** 视为已存在，跳过。段错误后直接重跑不会贴重。**副作用：计数器会归零失真——判断成败必须靠区间对账，不是脚本打印的「新增 N 条」。**
 
 ## 两轮重试
 

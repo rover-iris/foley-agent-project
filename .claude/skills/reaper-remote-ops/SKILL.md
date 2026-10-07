@@ -228,6 +228,7 @@ RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER
 - `ISBUS 1 1` = folder/bus 轨（推子显示 -inf 正常）；`ISBUS 0 0` = 普通轨。
 - 发送：无尖括号行 `AUXRECV <源轨索引> ...`，写在**接收轨**块内。
 - region 在 RPP 文本中拆两行（REAPER 7.52 实测，20260928）：起点行带名+R 标志、终点行 `"" 1` 名空——自写离线解析器必须按两行式按 idx 成对，老单行格式解析 0 命中；格式版本注记详见 `reaper-foley-workflow` skill `references/new-project.md`。
+- `NAME` 行对**无空格的值不写引号**（7.52 实测，20261007）：`NAME 衣物摩擦` 与 `NAME "动作fx 02"` 两种写法并存——解析轨名/条目名的正则必须兼容无引号写法；强制要求引号会跳过该行、误取块内下一行带引号的值（总监复核曾因此把条目名误读为轨名，误下返工单）。
 - 改完保存前先复制原文件备份；REAPER 开着时不要编辑 .rpp。
 
 ---
@@ -249,9 +250,13 @@ RPR.Main_OnCommand(40004, 0)                            # File: Quit REAPER
 | 字符串返回值是空串 | 缓冲区参数传了 0，改传 1024 |
 | `GetMediaSourceLength` 报错 | 包装层 bug，用 `Source(id).length()` |
 | `os.remove` 被沙箱拦 | 外部 shell rm，脚本内不删文件 |
-| `EnumProjectMarkers` 非数值出参位返空串（20260916/20260928 两次实测） | 字符串/索引出参在网络通道**不回写**——传入的占位串原样返回（20260928 实测 r[5] 为空串，`int(r[5])` 直接 ValueError）。返回元组**只读数值可信位**：r[0]（retval 总数）、r[2]（isrgn）、r[3]（pos）、r[4]（rgnend）；其余字符串/索引位一律不读、不转换、不参与对账（`CountProjectMarkers` 的 markers/regions 出参位同理误报 0——总数取 r[0] 可信，明细一律逐条 `EnumProjectMarkers` 枚举）。Region 名在线拿不到，名权威 = 离线 RPP 文本解析；在线对账只按位置比对、不比名称；删 marker 按返回值末位 **marker id**（`AddProjectMarker` 返回值就是 id），**枚举序号≠id**，按序号删曾误删一条。附注：官方 ReaScript 签名该字符串出参位为 name——字段名记载以官方 API 为准，入册以实测现象为准 |
+| `EnumProjectMarkers` 非数值出参位返空串（20260916/20260928 两次实测） | 字符串/索引出参在网络通道**不回写**——传入的占位串原样返回（20260928 实测 r[5] 为空串，`int(r[5])` 直接 ValueError）。返回元组**只读数值可信位**：r[0]（retval 总数）、r[2]（isrgn）、r[3]（pos）、r[4]（rgnend）；其余字符串/索引位一律不读、不转换、不参与对账（`CountProjectMarkers` 的 markers/regions 出参位同理误报 0——总数取 r[0] 可信，明细一律逐条 `EnumProjectMarkers` 枚举）。Region 名在线拿不到，名权威 = 离线 RPP 文本解析；在线对账只按位置比对、不比名称；删 marker 按返回值末位 **marker id**（`AddProjectMarker` 返回值就是 id），**枚举序号≠id**，按序号删曾误删一条。附注：官方 ReaScript 签名该字符串出参位为 name——字段名记载以官方 API 为准，入册以实测现象为准；20261007 复证：`CountProjectMarkers(0,0,0)` 这类 int 出参位直调同属禁忌 |
 | 建删 Region/markers 正确姿势（20260916 定稿） | 建：`AddProjectMarker(0, 1, pos, end, name, -1)` 返回新 id（≥0 即成功）；删：`DeleteProjectMarkerByIndex(0, 枚举序号)` 前先用 id 核对目标；改完必须 `Main_SaveProjectEx` 落盘并用 .rpp 文本 grep 验证（内存读回不可靠时文件是真值） |
 | reapy_boost 字符串出参返回 list 非 tuple | 解包注意——返回容器类型可能是 list 不是 tuple，解包/索引前先确认实际类型，别按 tuple 假定写死 |
+| REAPER 反复弹「脚本执行错误」裸窗（无脚本名无行号） | reapy 服务没跑的症状（20261007 事故）：根因是 REAPER 的 ReaScript 解释器（REAPER.ini `pythonlibpath64`）指到了被应用更新清空的第三方 vendor Python——**解释器禁指 WorkBuddy 等第三方应用管理的 Python**（应用更新会端掉 site-packages），用系统 Python + `configure_reaper` 重配（改前关 REAPER，它退出会回写 ini）。排查先 `netstat` 看 2308 是否 LISTENING |
+| import/connect 时 `RecursionError: maximum recursion depth` | 服务没跑的客户端症状（20261007 实测）：Web 口 2309 通但 reapy server 未起时，客户端激活重试递归爆栈——不是脚本 bug，禁止盲目重试；先在 REAPER 里把服务起起来再连 |
+| 连接指定端口后 API 不通 | connect 不显式传端口：`Host(IPv4Address("127.0.0.1"))` 默认 2308（reapy server）；2309 是 Web Interface 口不是 API 通道（20261007 误连 2309 实测） |
+| activate_reapy_server 已 configure 但动作列表搜不到 / Web 触发静默无效 | `configure_reaper` 只写 kb.ini 注册，REAPER 7.52 实测不加载该注册（20261007）：REAPER 内 Actions → New action → Load ReaScript 手动加载一次该脚本（加载即注册，点 Run 起服务，弹「任务控制」说明已在跑点取消）；REAPER 重启后自启机制未实测，挂账——重启后需重新手动 Run |
 
 ---
 
