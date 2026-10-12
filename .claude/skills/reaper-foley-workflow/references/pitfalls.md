@@ -33,6 +33,7 @@
 | X-04 | 贴完看不到波形 | ①volumedetect 查源电平 → ②peaks 缓存（place 模板已内置 `build_peaks()` 自动建峰，手动「峰值→构建峰值」仅兜底）→ ③查轨/条目 mute |
 | X-05 | subprocess 读 ffmpeg 输出抛 UnicodeDecodeError / 判读误判 | ffmpeg stderr 含非 UTF-8 字节：`subprocess.run(..., text=True, errors="replace")` 容错后再解析 |
 | X-06 | DB 报 `no such module: fts5` | Python 换官方编译版（自带 FTS5） |
+| X-07 | python 访问 NAS 反斜杠 UNC 失败 | 本机实测反斜杠 UNC（`\\192.168...`）exists/open 静默 False，**正斜杠**（`//192.168.../...`）正常——脚本里 NAS 路径一律正斜杠 |
 
 ## REAPER 操作层（指针，不归本册）
 

@@ -86,16 +86,21 @@ def main():
     rows = []
     with open(a.plan, encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
-            ep = int(r["集数"])
+            ep_raw = str(r["集数"]).strip()
+            ep = int(ep_raw) if ep_raw.isdigit() else ep_raw   # 字符串集号兼容（如 15v2）
             base = float(r["预计base_s"])
             length = float(r["时长_s"])
             video = (r.get("视频") or "").strip()
-            name = f"第{ep:03d}集 {os.path.basename(video)}" if video else ""
+            name = (f"第{ep:03d}集 {os.path.basename(video)}" if isinstance(ep, int)
+                    else f"{ep} {os.path.basename(video)}") if video else ""
             rows.append((ep, base, length, video, name))
     assert rows, "plan 为空"
 
+    def _lua_ep(ep):  # Lua 侧只用 tostring(e.ep) 做 Region 名，数字/字符串都安全
+        return str(ep) if isinstance(ep, int) else f'"{ep}"'
+
     ep_rows = ",\n".join(
-        f"  {{ep={ep}, base={base}, len={length}, video=[[{video}]], name=\"{name}\"}}"
+        f"  {{ep={_lua_ep(ep)}, base={base}, len={length}, video=[[{video}]], name=\"{name}\"}}"
         for ep, base, length, video, name in rows)
     lua = (LUA_TEMPLATE
            .replace("@PLAN@", os.path.basename(a.plan))

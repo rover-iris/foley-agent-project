@@ -66,6 +66,7 @@ class AssetHit:
     cue_offset_sec: float = 0.0
     cue_len_sec: float | None = None
     rating: int = 0
+    duration: float = 0.0
 
 
 def _api_key() -> str:
@@ -284,11 +285,11 @@ def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_
         results = []
         for aid, info in hits.items():
             row = conn.execute(
-                "SELECT path, name, category, n_cues, rating, theme, official FROM assets WHERE id=?", (aid,)
+                "SELECT path, name, category, n_cues, rating, theme, official, duration FROM assets WHERE id=?", (aid,)
             ).fetchone()
             if not row:
                 continue
-            path, name, category, n_cues, rating, theme, official = row
+            path, name, category, n_cues, rating, theme, official, duration = row
             # 低优先级分类降权（用户几乎不用，压到结果末尾）
             score = info["score"]
             if category in low_pri:
@@ -392,6 +393,7 @@ def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_
                     cue_offset_sec=cue[0] if cue else 0.0,
                     cue_len_sec=cue[1] if cue else None,
                     rating=rating or 0,
+                    duration=duration or 0.0,
                 )
             )
         results.sort(key=lambda h: h.score, reverse=True)
@@ -413,6 +415,42 @@ def search(db_path: str, query: str, top_k: int = 8, debug: bool = False, scene_
         conn.close()
 
 
+def batch_search(db_path: str, batch_file: str, out_json: str = "", top_k: int = 5) -> dict:
+    """批量检索（直通模式备料）：关键词清单进 → 候选总表出，替代逐条工具调用循环。
+
+    输入 JSON：
+      {"genre": "玄幻", "scene_theme": "通用",
+       "items": [{"id": "A1", "query": "钥匙 开锁", "top_k": 5}, ...]}
+    输出：<batch 同目录>/检索候选_<batch文件名stem>.json（或 --out 指定）+ 终端表格。
+    """
+    spec = json.loads(Path(batch_file).read_text(encoding="utf-8"))
+    genre = spec.get("genre", "")
+    scene_theme = spec.get("scene_theme", "通用")
+    items = spec.get("items", [])
+    if not items:
+        raise SystemExit("[FAIL] batch 文件 items 为空")
+    result = {"genre": genre, "scene_theme": scene_theme, "count": len(items), "items": {}}
+    for it in items:
+        qid, query = it.get("id", "?"), it["query"]
+        hits = search(db_path, query, top_k=it.get("top_k", top_k),
+                      scene_theme=scene_theme, genre=genre)
+        result["items"][qid] = {
+            "query": query,
+            "candidates": [
+                {"name": h.name, "path": h.path, "category": h.category,
+                 "rating": h.rating, "duration": round(h.duration, 3),
+                 "score": round(h.score, 2)}
+                for h in hits
+            ],
+        }
+        top = hits[0].name[:36] if hits else "（空）"
+        print(f"  {qid:>5} | {query[:24]:<26} → {len(hits)} 候选，首选 {top}")
+    out = out_json or str(Path(batch_file).parent / f"检索候选_{Path(batch_file).stem}.json")
+    Path(out).write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"批量检索完成：{len(items)} 条 → {out}")
+    return result
+
+
 if __name__ == "__main__":
     import sys
 
@@ -426,6 +464,16 @@ if __name__ == "__main__":
     ]
     _db = next((p for p in candidates if p.exists()), candidates[0])
     db = str(_db)
+
+    if len(sys.argv) >= 3 and sys.argv[1] == "--batch":
+        # 批量模式：python search_assets.py --batch 查询清单.json [--out 输出.json]
+        out = ""
+        if "--out" in sys.argv:
+            i = sys.argv.index("--out")
+            out = sys.argv[i + 1]
+        batch_search(db, sys.argv[2], out_json=out)
+        sys.exit(0)
+
     for q in sys.argv[1:] or ["sea"]:
         print(f"== 查询: {q} ==")
         for h in search(db, q, top_k=5, debug=True):

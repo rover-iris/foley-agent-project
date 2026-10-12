@@ -167,4 +167,6 @@ UPDATE assets SET path = replace(path, '<旧前缀>', '<新前缀>') WHERE path 
 
 链路：中文查询 → LLM 扩展英文关键词+排除词（模型可配，主体限定/排除词质量优先选强模型）→ 两阶段（action_packs 锁包 → 包内 FTS5 bm25）→ 锁包空结果**自动退回全库**（宁可全库不空手）→ 中文类别加分 → 分类先导 +8 → 过滤/加权。静态映射优先、LLM 只兜长尾；三条防副作用机制：触发词只匹配查询词本身、排除词与检索词冲突时弃用排除词、rating 加分需语义 token 交集。
 
+**CLI 与批量模式（直通配套）**：CLI 直跑可用（四布局自动找库）：`python search_assets.py "关键词"`；**批量模式**：`python search_assets.py --batch 查询清单.json [--out 输出.json]`——清单 `{"genre","scene_theme","items":[{"id","query","top_k"}]}`，一次跑出全部候选总表（含 duration/rating/score）落盘 `检索候选_<stem>.json`，供集中裁决，替代逐条工具调用循环。
+
 **题材域过滤**：`search(..., genre="玄幻")` 按 config `library.domain_tags` 把对域素材（科技域 official/分类）降权压末位（-8，**降权非排除**，宁可末位不空手；命中映射见 `genre_domain_block`）。题材写入 `foley_project.json` 的 `genre` 字段（`project_config.py init --genre`），选材开工前先定题材。手工 SQL 检索（不经引擎）时自行加 `AND official NOT IN (...)`/`AND category NOT IN (...)` 等效过滤，域清单以 config 为准。

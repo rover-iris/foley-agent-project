@@ -56,7 +56,8 @@ def find_base(RPR, ep):
     for e, pos, end in enum_regions(RPR):
         if e == ep:
             return pos, end
-    raise SystemExit(f"工程里没找到集 {ep} 的 Region——先建 Region 或用 --base 手填实测值")
+    raise SystemExit(f"工程里没找到集 {ep} 的 Region——注意：Region 名在线取不到（[R-13] 出参不回写），"
+                     f"此路只对历史纯数字集号有效；请改用 --base 手填或数据文件写 BASE（离线解析 extract_regions.py 取数）")
 
 
 def put(RPR, p, ti, pos, path, ln, label, fade, off, vol, fadein):
@@ -190,11 +191,15 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="只打印解析结果，不贴")
     a = ap.parse_args()
 
+    # TRACK_RANGE 优先级（2026-10-12 见习首演抓到并定口径）：CLI --tracks > 数据文件 > config > 模板默认
+    tracks_from_data = False
     if a.data:  # 直通模式：数据文件覆盖必填区（缺省字段沿用模板值）
         m = load_data(a.data)
         EP = getattr(m, "EP", EP)
         BASE = getattr(m, "BASE", BASE)
-        TRACK_RANGE = tuple(getattr(m, "TRACK_RANGE", TRACK_RANGE))
+        if hasattr(m, "TRACK_RANGE"):
+            TRACK_RANGE = tuple(m.TRACK_RANGE)
+            tracks_from_data = True
         NOTE = getattr(m, "NOTE", NOTE)
         S_NAMES = getattr(m, "S_NAMES", S_NAMES)
         CUES = getattr(m, "CUES", CUES)
@@ -213,7 +218,7 @@ def main():
     if a.tracks:
         s, e = a.tracks.split(":")
         TRACK_RANGE = (int(s), int(e))
-    elif a.config:
+    elif a.config and not tracks_from_data:  # config 只是默认值，不盖数据文件的集级意图
         cfg = load_config(a.config)
         tr = cfg.get("tracks", {}).get("action_children")
         if tr:

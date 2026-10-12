@@ -2,8 +2,10 @@
 """一键自检：区间对账 + 空块扫描 + 同轨重叠 + 越界审计 + 父轨清查，一次跑完出总报告。
 
 用法：
-  python selfcheck_ep.py --ep 3 --expect 45 --config foley_project.json
+  python selfcheck_ep.py --ep 15v2 --rpp 工程.rpp --tracks 7:31 --expect 40 --config foley_project.json
   python selfcheck_ep.py --base 1606.99 --base-end 1750.0 --tracks 14:29 --expect 45 --db 库.db
+
+注意：Region 名（集号）在线取不到（[R-13] 出参不回写），--ep 解析一律离线读 RPP（extract_regions.parse_rpp）。
 
 四关（任何一关不过 = FAIL）：
   1. 区间对账：Region 内 item 数 == --expect（不信任何计数器）+ 空块扫描（无 take/无 source）；
@@ -18,7 +20,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rfw_common import (connect_reaper, duration_map, enum_regions, load_config,
+from rfw_common import (connect_reaper, duration_map, load_config,
                         open_asset_db, pointer_ok, setup_stdout)
 
 OVLAP_TOL = 0.05
@@ -29,7 +31,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", help="foley_project.json")
     ap.add_argument("--db", help="音源库 DB")
-    ap.add_argument("--ep", type=int, help="集号（在线查 Region；与 --base 二选一）")
+    ap.add_argument("--ep", help="集号/Region 名（离线解析 RPP 查基准；需 --rpp 或 config paths.project_rpp）")
+    ap.add_argument("--rpp", help="工程 .RPP 路径（--ep 离线解析用）")
     ap.add_argument("--base", type=float, help="实测 base（跳过 Region 查询）")
     ap.add_argument("--base-end", type=float)
     ap.add_argument("--tracks", required=True, help="动作组子轨区间，如 14:29")
@@ -45,11 +48,17 @@ def main():
     if a.base is not None:
         base, base_end = a.base, a.base_end
     elif a.ep is not None:
-        hit = [(pos, end) for e, pos, end in enum_regions(RPR) if e == a.ep]
-        if not hit:
-            print(f"❌ 工程里没找到集 {a.ep} 的 Region")
+        from extract_regions import parse_rpp
+        rpp = a.rpp or (load_config(a.config)["paths"].get("project_rpp") if a.config else "")
+        if not rpp:
+            print("❌ --ep 需要 --rpp 或 config 的 paths.project_rpp（离线解析）")
             sys.exit(1)
-        base, base_end = hit[0]
+        hit = [r for r in parse_rpp(rpp)
+               if str(a.ep) in (str(r.get("名称", "")), str(r["集数"]))]
+        if not hit:
+            print(f"❌ RPP 里没找到 Region「{a.ep}」")
+            sys.exit(1)
+        base, base_end = hit[0]["base_s"], hit[0]["end_s"]
     else:
         print("❌ --ep 与 --base 必须给一个")
         sys.exit(1)

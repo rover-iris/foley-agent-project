@@ -41,6 +41,7 @@ def parse_rpp(path):
         ep = int(names[mid]) if names.get(mid, "").isdigit() else mid
         rows.append({
             "集数": ep,
+            "名称": names.get(mid, ""),   # Region 原名（集号权威；「14-1v2」这类非纯数字名只能靠它匹配）
             "marker_id": mid,
             "base_s": s,
             "end_s": e,
