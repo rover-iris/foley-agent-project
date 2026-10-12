@@ -30,7 +30,7 @@ def q(db, name):   # 精确名优先，前缀兜底；取不到就报错，不�
 
 每集开始建一张 `S = {别名: q("DB真名")}` 音源字典，cue 表里只写别名——一条一行，可读可查。
 
-**条目命名（制作人拍板）**：REAPER 条目名（P_NAME）写「label ｜ 源文件名 stem」合并格式（如 `拔剑 ｜ CC-CK Body Fall Generic Cloth Soft 01`）——label 段承载动作描述与「待人删」等标注（REAPER 界面直接可读），stem 段供按包定位音源。防重比对先按「｜」拆出 label 段再比对（[W-08]，place 模板已内置）。
+**条目命名（制作人拍板）**：REAPER 条目名（P_NAME）**默认只写源文件名 stem**（如 `CC-CK Body Fall Generic Cloth Soft 01`），不另起中文名；**仅拿不准条目**（label 含「待人删/待裁/待核/存疑/宁多不少」标注）写「label ｜ stem」合并格式（如 `【待人删】拔剑 ｜ CC-CK Body Fall Generic Cloth Soft 01`）——界面上一眼分出待裁条目，其余干净。防重比对兼容两种写法（[W-08]，place 模板已内置）。
 
 ## 关键词检索（交互式选材）
 

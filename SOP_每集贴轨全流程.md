@@ -65,7 +65,7 @@
 
 - **直通模式**：总监派单直出数据文件 `cues_<集号>.py`（EP/BASE/TRACK_RANGE/S_NAMES/CUES），见习零转写——①`prepare_ep.py --data` 备料预审（路径解析/越界/非零取窗 vd 取证/同源计数，FAIL 打回总监）；②`place_ep_template.py --data --dry-run` 核对后正式跑；③`selfcheck_ep.py` 一键四关自检。详见 place-and-audit.md「直通模式」节。仅当派单无数据文件时回退旧路径（抄 `place_ep_template.py` 手填必填区）。
 - track_idx 必须按本工程实测轨序（模板内是示例轨序）；禁止从零重写连接/防重/贴轨逻辑。
-- D_STARTOFFS 显式写 `SetMediaItemTakeInfo_Value(take,'D_STARTOFFS',off)`（[R-04]）；REAPER 条目名 P_NAME = 「label ｜ 源文件名 stem」合并写法（[W-08]，retrieval.md 条目命名节）；**音量一律不动**（[铁律 8]）：item D_VOL 保持默认 1.0，禁止 0.3~0.8 之类的调量；幂等防重可安全重跑，对账不足自动第二轮。
+- D_STARTOFFS 显式写 `SetMediaItemTakeInfo_Value(take,'D_STARTOFFS',off)`（[R-04]）；REAPER 条目名 P_NAME 默认 = 源文件名 stem，仅拿不准条目写「label ｜ stem」（[W-08]，retrieval.md 条目命名节）；**音量一律不动**（[铁律 8]）：item D_VOL 保持默认 1.0，禁止 0.3~0.8 之类的调量；幂等防重可安全重跑，对账不足自动第二轮。
 - **start_offset 口径**：见 [铁律 10]——默认 0 头部起播；非零取窗必须先出 ffmpeg volumedetect 证据（窗口内 max_volume > −30dB），禁止盲选。
 - **杂集素材**：>10s 杂集/compilation 默认不作候选，确需使用须全窗 volumedetect 有声证据 + 存疑清单放行（[铁律 10]）。
 - 长环境底可同轨相邻多条拼接（不重叠）。

@@ -14,7 +14,7 @@
 | 1 | t_local | Region 内相对秒 | 贴时换算 `绝对 = BASE + t_local`，不要手工加 |
 | 2 | source_key | S 字典别名 | S 字典用 `q()` 从 DB 取真实路径，不手写绝对路径 |
 | 3 | len | 取窗长度（秒） | 不得超过源长，且 `start_offset + len ≤ 源长` |
-| 4 | label | 中文动作描述 | 条目名 P_NAME = 「label ｜ 源文件名 stem」合并写法（retrieval.md 条目命名节）；防重先按「｜」拆 label 段比对（[W-08]，模板已内置） |
+| 4 | label | 中文动作描述 | 条目名 P_NAME 默认 = 源文件名 stem；仅拿不准条目（label 含待人删/待裁等待标注）写「label ｜ stem」（retrieval.md 条目命名节）；防重兼容两种写法（[W-08]，模板已内置） |
 | 5 | fadeout | 出淡（秒） | 0 = 硬切；跨切点事件要延长+淡出（声音连续性） |
 | 6 | start_offset | 源内起始偏移（秒） | **🔴 必须显式写 D_STARTOFFS，见下**；**默认 0**——非零取窗必须先出 volumedetect 证据（窗口 max > −30dB），禁止盲选（[铁律 10]） |
 | 7 | vol | ~~线性增益~~ **已废止（制作人口径：音效文件一律默认音量，不做任何音量调整）** | 引擎强制写 D_VOL=1.0；旧 CUES 里的 vol 值被忽略 |

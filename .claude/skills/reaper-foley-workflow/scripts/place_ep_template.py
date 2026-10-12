@@ -62,11 +62,12 @@ def find_base(RPR, ep):
 def put(RPR, p, ti, pos, path, ln, label, fade, off, vol, fadein):
     """贴一条。返回 True=新增成功 / None=已存在跳过 / str=失败原因。"""
     track = p.tracks[ti]
-    # 条目名 = label + 源文件名（2026-10-07 制作人拍板，取代 0909「仅源文件名、label 仅对账」口径）：
-    # 【待人删】等 CUES 标注必须随 label 落地 P_NAME，否则 REAPER 界面不可见、终裁无法按图索骥
-    #（1007测试 返工事故：label 未落地，15+1 条待人删 grep=0 被打回）
+    # 条目名口径（2026-10-12 制作人修订，取代 1007「全员 label ｜ stem」）：
+    # 默认 P_NAME = 源文件名 stem（不多起名）；仅拿不准条目（label 含待人删/待裁/待核/
+    # 存疑/宁多不少 标注）写「label ｜ stem」——界面上一眼分出待裁条目，其余干净。
     stem = os.path.splitext(os.path.basename(path))[0]
-    pname = f"{label} | {stem}" if label else stem
+    FLAG_MARKS = ("待人删", "待裁", "待核", "存疑", "宁多不少")
+    pname = f"{label} | {stem}" if label and any(m in label for m in FLAG_MARKS) else stem
     for it in track.items:
         if abs(it.position - pos) < POS_TOL and it.takes:
             name = ""
@@ -97,7 +98,7 @@ def put(RPR, p, ti, pos, path, ln, label, fade, off, vol, fadein):
     # 2026-09-11 制作人口径：音效文件一律用默认音量，不再做任何增益调整。
     # cue 九元组中的 vol 字段保留仅为兼容旧 CUES，落地时强制 1.0。
     RPR.SetMediaItemInfo_Value(item, "D_VOL", 1.0)
-    RPR.GetSetMediaItemTakeInfo_String(take, "P_NAME", pname, True)  # 条目名=label+源文件名，见 put() 头注释
+    RPR.GetSetMediaItemTakeInfo_String(take, "P_NAME", pname, True)  # 条目名口径见 put() 头注释
     # 立即回读验证 source 没丢（交替性丢失是已知现象）
     if not pointer_ok(RPR.GetMediaItemTake_Source(take)):
         RPR.DeleteTrackMediaItem(track.id, item)
