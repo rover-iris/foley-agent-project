@@ -42,6 +42,16 @@ POS_TOL = 0.15   # 防重：|位置差| < 此值 且 label 相同 → 视为已�
 ROUNDS = 2       # 对账不足自动补贴轮数
 
 
+def load_data(path):
+    """直通模式：从外部数据文件（总监直出的 cues_<ep>.py）读 EP/BASE/TRACK_RANGE/NOTE/S_NAMES/CUES，
+    覆盖上方必填区。数据文件只需定义同名变量；缺省的字段沿用模板默认。"""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("cues_data", path)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
 def find_base(RPR, ep):
     for e, pos, end in enum_regions(RPR):
         if e == ep:
@@ -168,8 +178,9 @@ def build_peaks(RPR, p, base, base_end):
 
 def main():
     setup_stdout()
-    global BASE, TRACK_RANGE
+    global EP, BASE, TRACK_RANGE, NOTE, S_NAMES, CUES
     ap = argparse.ArgumentParser()
+    ap.add_argument("--data", help="外部数据文件 cues_<ep>.py（直通模式，覆盖头部必填区）")
     ap.add_argument("--config", help="foley_project.json")
     ap.add_argument("--db", help="音源库 DB（缺省取 config.paths.asset_db）")
     ap.add_argument("--base", type=float, help="手填实测 base（缺省连 REAPER 实测）")
@@ -178,6 +189,15 @@ def main():
     ap.add_argument("--dry-run", action="store_true", help="只打印解析结果，不贴")
     a = ap.parse_args()
 
+    if a.data:  # 直通模式：数据文件覆盖必填区（缺省字段沿用模板值）
+        m = load_data(a.data)
+        EP = getattr(m, "EP", EP)
+        BASE = getattr(m, "BASE", BASE)
+        TRACK_RANGE = tuple(getattr(m, "TRACK_RANGE", TRACK_RANGE))
+        NOTE = getattr(m, "NOTE", NOTE)
+        S_NAMES = getattr(m, "S_NAMES", S_NAMES)
+        CUES = getattr(m, "CUES", CUES)
+
     db_path = a.db or (load_config(a.config)["paths"].get("asset_db") if a.config else "")
     db = open_asset_db(db_path)
     S = {alias: q(db, name) for alias, name in S_NAMES.items()}
@@ -185,7 +205,7 @@ def main():
 
     # 解析 cue → 绝对时间表
     rb = RPR = p = None
-    base, base_end = a.base, None
+    base, base_end = (a.base if a.base is not None else BASE), None
     if base is None:  # 坑：第一集 base=0.0 是合法值，不能走真值判断（否则误入 RPC 找 Region）
         rb, RPR, p = connect_reaper(a.host)
         base, base_end = find_base(RPR, EP)

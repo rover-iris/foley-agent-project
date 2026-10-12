@@ -71,9 +71,9 @@ description: AI 驱动 REAPER 影视音效工作流（foley pipeline）通用方
 | ① | 每条 cue 抽帧亲眼确认动作存在；时间戳与画面不符以帧为准 | SKILL 快照 `video-action-analysis`（上游格式） |
 | ② | base 用 `scripts/extract_regions.py` 离线解析 RPP（在线枚举出参不可信，见 [R-13]）或实测传入，**绝不估算**；`绝对时间 = base + t_local` | references/place-and-audit.md |
 | ③ | 音源库 SQLite+FTS5 检索；同源≤2次/异窗轮换/锁包优先；星级不硬卡（弱/轻类 cue 不做星级与 Designed 加权）；力度/质感对位硬校验 | references/retrieval.md |
-| ④ | 抄 `scripts/place_ep_template.py`，填 CUES 九元组表 | references/place-and-audit.md |
-| ⑤ | 幂等防重，段错误直接重跑；**成败不看计数器看对账** | references/place-and-audit.md |
-| ⑥ | 区间对账 + 重叠检测 + off+len 越界审计（`scripts/audit_offsets.py`） | references/place-and-audit.md |
+| ④ | 总监直出 `cues_<集号>.py` 数据文件（直通模式）；`prepare_ep.py` 预审（vd 取证/越界/同源）FAIL 即打回 | references/place-and-audit.md 直通模式节 |
+| ⑤ | `place_ep_template.py --data` 直跑，幂等防重，段错误直接重跑；**成败不看计数器看对账** | references/place-and-audit.md |
+| ⑥ | `selfcheck_ep.py` 一键四关：区间对账 + 空块 + 重叠 + 越界 + 父轨清查 | references/place-and-audit.md 直通模式节 |
 | ⑦ | place 脚本按集留档；工程保存+静默关闭 → `reaper-remote-ops` §5；**更新项目进度文档** | reaper-remote-ops SKILL |
 
 多集连做：逐集跑完逐集自检，**不要攒一起跑**（段错误重跑时无法定位是哪集）。

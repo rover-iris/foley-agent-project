@@ -133,3 +133,22 @@ python scripts/extract_regions.py --rpp <工程.RPP> --out region_bases.csv   # 
 - place 脚本按集留档（`place_ep{NN}_v1.py`），头部注释写明「报告已帧证据核验」作为质检痕迹。
 - 工程保存与静默关闭的完整流程见 `reaper-remote-ops` SKILL §5（坑见 [R-09]）。
 - **每批做完更新项目侧进度文档**。
+
+## 直通模式（默认路径，制作人 2026-10-12 批准）
+
+目标：消灭见习手工转写——派单数据一次写对，机器直通到底。
+
+1. **总监直出数据文件** `cues_<集号>.py`（纯数据，与派单文档同目录）：
+   ```python
+   EP = 3                       # 集号
+   BASE = 1606.99               # 引用基准表文件照抄，禁手抄
+   TRACK_RANGE = (14, 29)       # 以实测轨序为准
+   NOTE = "报告已帧证据核验"
+   S_NAMES = {'FIRE': "CECK FIRE Whoosh Fireball", ...}   # 别名 -> DB 真名
+   CUES = [(20, 13.2, 'FIRE', 2.0, "符纸自燃爆燃", 0.7, 0, 1.0, None), ...]  # 九元组
+   ```
+2. **备料预审**（不碰 REAPER）：`python prepare_ep.py --data cues_<集号>.py --config foley_project.json`——结构/路径解析/越界预审/非零取窗 vd 取证/同源计数，FAIL 即打回总监；PASS 出 `备料报告_<EP>.json`（vd 证据留痕，交班引用它）。
+3. **贴轨**：`python place_ep_template.py --data cues_<集号>.py --config foley_project.json [--dry-run 先核对]`——模板照旧内置防重/建峰/自检。
+4. **一键自检**：`python selfcheck_ep.py --ep <集号> --tracks 14:29 --expect <条数> --config foley_project.json`——对账+空块+重叠+越界+父轨清查四关一次跑完，末行 RESULT JSON。
+
+旧路径（抄模板手填必填区）仍可用，仅当总监未直出数据文件时回退。
