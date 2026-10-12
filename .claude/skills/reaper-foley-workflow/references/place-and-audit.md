@@ -14,10 +14,10 @@
 | 1 | t_local | Region 内相对秒 | 贴时换算 `绝对 = BASE + t_local`，不要手工加 |
 | 2 | source_key | S 字典别名 | S 字典用 `q()` 从 DB 取真实路径，不手写绝对路径 |
 | 3 | len | 取窗长度（秒） | 不得超过源长，且 `start_offset + len ≤ 源长` |
-| 4 | label | 中文动作描述 | **仅用于运行日志/对账打印，不写入条目名**。条目名一律 = 源文件名 stem（用户按包定位音源，2026-09-09 拍板）；防重判定 = 同位置 + 同源文件名 |
+| 4 | label | 中文动作描述 | 条目名 P_NAME = 「label ｜ 源文件名 stem」合并写法（retrieval.md 条目命名节）；防重先按「｜」拆 label 段比对（[W-08]，模板已内置） |
 | 5 | fadeout | 出淡（秒） | 0 = 硬切；跨切点事件要延长+淡出（声音连续性） |
-| 6 | start_offset | 源内起始偏移（秒） | **🔴 必须显式写 D_STARTOFFS，见下**；**默认 0**——非零取窗必须先出 volumedetect 证据（窗口 max > −30dB），禁止盲选（20260916 制作人条款） |
-| 7 | vol | ~~线性增益~~ **已废止（2026-09-11 制作人口径：音效文件一律默认音量，不做任何音量调整）** | 引擎强制写 D_VOL=1.0；旧 CUES 里的 vol 值被忽略 |
+| 6 | start_offset | 源内起始偏移（秒） | **🔴 必须显式写 D_STARTOFFS，见下**；**默认 0**——非零取窗必须先出 volumedetect 证据（窗口 max > −30dB），禁止盲选（[铁律 10]） |
+| 7 | vol | ~~线性增益~~ **已废止（制作人口径：音效文件一律默认音量，不做任何音量调整）** | 引擎强制写 D_VOL=1.0；旧 CUES 里的 vol 值被忽略 |
 | 8 | fadein | 入淡（秒） | None = 不入淡 |
 
 ## 轨组→轨映射
@@ -118,19 +118,18 @@ for _p in _SKILL_PATHS:
 
 ## Base 实测（每集开始）
 
-```python
-for i in range(RPR.CountProjectMarkers(0)):
-    ok, isrg, pos, endpos, name, idx = RPR.EnumProjectMarkers2(0, i)
-    if isrg and name == f"{ep}":        # 按项目 Region 命名规则匹配
-        BASE, BASE_END = pos, endpos
+base 一律**离线解析**（在线枚举出参不可信，[R-13]）：
+
+```bash
+python scripts/extract_regions.py --rpp <工程.RPP> --out region_bases.csv   # Region 名=集号，起点/终点全在其中
 ```
 
-不要估算。项目侧的 region 基准表 CSV 只是缓存，冲突时以工程实测为准。**派单/脚本里的 BASE 与偏移值必须注明来源基准表文件并照抄，禁止对话手抄**（20260916 夜批手抄 BASE 错 2.375s，两集 69 条返工）。
+不要估算。项目侧的基准表 CSV 与工程落盘 RPP 冲突时，以**工程落盘 RPP 离线解析**为准。**派单/脚本里的 BASE 与偏移值必须注明来源基准表文件并照抄，禁止对话手抄**（案情见 12 号）。
 
-⚠️ 包装层坑（20260916 实测，详表见 `reaper-remote-ops` skill §7）：`CountProjectMarkers(0,0,0)` 返回的 markers/regions 出参在 reapy_boost 网络通道会误报 0（总数 [0] 可信）；`EnumProjectMarkers` 的**名称出参会原样回显占位串**（读不到真名）——Region/marker 的对账一律逐条枚举、**按位置比对**，删 marker 按返回值末位的 marker id 识别，枚举序号≠id。
+⚠️ 包装层坑（详表见 `reaper-remote-ops` skill §7 [R-13]）：枚举/计数出参在 reapy_boost 网络通道不回写——Region/marker 的对账一律**按位置比对**，删 marker 按 marker id 识别（枚举序号≠id）。
 
 ## 存档
 
 - place 脚本按集留档（`place_ep{NN}_v1.py`），头部注释写明「报告已帧证据核验」作为质检痕迹。
-- 工程保存与静默关闭的完整流程见 references/pitfalls.md。
+- 工程保存与静默关闭的完整流程见 `reaper-remote-ops` SKILL §5（坑见 [R-09]）。
 - **每批做完更新项目侧进度文档**。

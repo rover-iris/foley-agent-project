@@ -102,9 +102,8 @@ def connect_reaper(host="127.0.0.1", port=None):
     reapy_boost.connect(Host(IPv4Address(host)))
     RPR = reapy_boost.reascript_api
     if not hasattr(RPR, "CountTracks"):
-        raise SystemExit("reapy_boost reascript_api 是空壳（连接静默失败）——"
-                         "查 references/pitfalls.md「连接层/环境陷阱」：REAPER 是否运行且无模态弹窗、"
-                         "代理是否清理、2309 HTTP 是否 200")
+        raise SystemExit("reapy_boost reascript_api 是空壳（连接静默失败，见 reaper-remote-ops [R-27]）——"
+                         "先跑 connect_reaper.py 自诊断读 RESULT JSON（reaper-remote-ops §1.2/§7）")
     project = reapy_boost.Project()
     time.sleep(1)  # 连接后立刻调用会偶发失败
     return reapy_boost, RPR, project

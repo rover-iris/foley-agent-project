@@ -40,12 +40,7 @@ python scripts/new_project.py apply --project <新工程.RPP> --plan region_plan
     [--videos-dir <视频目录>]   # 可选：把每集视频贴到视频轨对应区间做参考画面
 ```
 
-脚本用 `RPR.AddProjectMarker(0, True, pos, end, str(ep), -1)` 逐集建 Region，建完重新枚举**实测** base 打表。API 要点：
-
-```python
-RPR.AddProjectMarker(0, True, pos, regend, name, -1)  # isrg=True, wantidx=-1 追加
-ok, isrg, pos, endpos, name, idx = RPR.EnumProjectMarkers2(0, i)  # 枚举实测
-```
+脚本用 `RPR.AddProjectMarker(0, True, pos, end, str(ep), -1)` 逐集建 Region（isrg=True, wantidx=-1 追加），建完落盘后**离线解析打表**（`extract_regions.py`；在线枚举出参不可信，[R-13]）。
 
 ### A3. 落盘与存档
 
@@ -53,7 +48,7 @@ ok, isrg, pos, endpos, name, idx = RPR.EnumProjectMarkers2(0, i)  # 枚举实测
    - 离线解析：`python scripts/extract_regions.py --rpp <工程.RPP> --out region_bases.csv`（无需 REAPER，直接解析 RPP 文本 MARKER 行）
    - 在线枚举：reapy 遍历 markers 打表
 2. CSV 归档到**项目侧**，并把它注册进 `foley_project.json`（`region_csv` 字段）。
-3. 保存工程：`Main_SaveProjectEx(0, <rpp路径>, 0)`（坑见 pitfalls.md）。
+3. 保存工程：`Main_SaveProjectEx(0, <rpp路径>, 0)`（保存定式与坑见 `reaper-remote-ops` SKILL §5/[R-09]）。
 4. 提交命名建议：`{剧名}_全{N}集_音效工程.RPP`；即使只做部分集，也建议按总集数预留 Region（后续加集零成本）。
 
 ## 场景 B：老工程加集

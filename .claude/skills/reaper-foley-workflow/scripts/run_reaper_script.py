@@ -65,7 +65,7 @@ def main():
         if "TRIGGER DONE" in out:
             print("完成。对账以落盘 RPP / 人类核验为准。")
             return
-    raise SystemExit(f"重试 {a.retries} 次仍未成功——查 references/pitfalls.md 后人工介入")
+    raise SystemExit(f"重试 {a.retries} 次仍未成功——REAPER 层查 reaper-remote-ops §7 [R-xx]、foley 工作流域查 references/pitfalls.md [W/X-xx]，后人工介入")
 
 
 if __name__ == "__main__":
