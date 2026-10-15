@@ -152,3 +152,27 @@ python scripts/extract_regions.py --rpp <工程.RPP> --out region_bases.csv   # 
 4. **一键自检**：`python selfcheck_ep.py --ep <集号> --tracks 14:29 --expect <条数> --config foley_project.json`——对账+空块+重叠+越界+父轨清查四关一次跑完，末行 RESULT JSON。
 
 旧路径（抄模板手填必填区）仍可用，仅当总监未直出数据文件时回退。
+
+## 验收包（见习交班必产，A4 复核单一入口）
+
+见习交班除三件套外必产单一验收包文件 `<集号>_验收包_<日期>.md`（与三件套同目录）。验收包是 A4 复核的唯一阅读对象——A4 读验收包 + 机器门禁结果 + 只抽查异常项，不回翻报告/派单/三件套。
+
+### 验收包模板（五节齐全；缺一节 = 缺包）
+
+1. **对账表**：CUES 逐条 ↔ 落盘 rpp 条目（轨号/绝对落点/时长/源文件/sofs，容差 0.01s），全命中或逐行列差异；
+2. **四关自检输出**：`selfcheck_ep.py` 末行 RESULT JSON 原文内联 + 四关逐项违规计数（对账/重叠/越界/父轨，各 = 0）；
+3. **帧比对输出**：`verify_frames.py` 末行 RESULT JSON 原文内联 + MISMATCH/NOFRAME 清单（有则逐条列，无则写 0）；
+4. **vd 证据**：非零取窗逐条 max_volume 数值内联，并注明来源文件路径（备料报告/vd 结果 JSON，禁手抄）；
+5. **存疑清单**：待人删/待人裁条目逐条内联（label / 轨号 / 绝对时段 / 待裁问题）。
+
+### 帧比对门禁（verify_frames.py，交班前必跑）
+
+`python verify_frames.py --task <任务文件夹> --ep <集号>`——抽验比例默认 ≥20%（--ratio），重点段经 --focus 秒清单强制全覆盖，--all 全量；取帧一律 eq(n) 帧号系精确取帧（禁止 -ss 直抽），md5 + aHash 双判（判据详表见脚本头注释）。RESULT = fail（MISMATCH/NOFRAME/MISSING/GRAB_FAIL 任一 >0）时未闭环禁止交班。
+
+### A4 复核口径（分支穷尽）
+
+1. 若验收包缺节或缺文件 → 打回补包，不回翻旧档替代；
+2. 若任一机器门禁 RESULT = fail（selfcheck_ep / verify_frames）→ 打回，按报告内 mismatches/violations 清单逐项整改；
+3. 若门禁全 pass → 只抽查异常项：存疑清单逐条 + 对账表差异行 + PASS_SOFT 帧，逐项亲验；
+4. 异常项亲验全部成立 → 出「通过」；任一不成立 → 打回（问题清单）。
+免检口径单不做图片抽查，免检项在验收包内注明并按留痕口径复核。
