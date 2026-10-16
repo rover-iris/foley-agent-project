@@ -5,7 +5,7 @@
   1. 复制本文件到项目工作区，命名 place_ep{NN}_v1.py；
   2. 填头部：EP / BASE(None=自动实测) / TRACK_RANGE / S 音源字典 / CUES 九元组表；
   3. 跑 --dry-run 先核对（路径解析 + 绝对时间表，不贴）；
-  4. 正式运行；跑完看三重自检输出（对账/重叠/越界），全过才算完。
+  4. 正式运行；跑完看内置自检输出（对账/重叠/越界），全过才算完（出厂自检归 selfcheck_ep.py，[铁律 5]）。
 
   python place_ep26_v1.py --config foley_project.json
   python place_ep26_v1.py --config foley_project.json --db 库.db --base 1606.99 --dry-run
@@ -108,7 +108,7 @@ def put(RPR, p, ti, pos, path, ln, label, fade, off, vol, fadein):
 
 
 def self_check(RPR, p, base, base_end, placed, durs):
-    """三重自检。返回违规数。"""
+    """内置自检（对账/重叠/越界三项；出厂自检归 selfcheck_ep.py，[铁律 5]）。返回违规数。"""
     lo, hi = TRACK_RANGE
     bad = 0
     # 1. 区间对账（别信 placed 计数器）
@@ -146,7 +146,7 @@ def self_check(RPR, p, base, base_end, placed, durs):
         if d and off + it.length > d + 0.05:
             print(f"⚠️ [{ti}] off={off:.2f}+len={it.length:.2f} > 源长 {d:.2f}  {os.path.basename(fn)[:40]}")
             bad += 1
-    print("\n三重自检全过 ✓" if bad == 0 else f"\n⚠️ {bad} 处违规，修复后重跑")
+    print("\n内置自检全过 ✓" if bad == 0 else f"\n⚠️ {bad} 处违规，修复后重跑")
     return bad
 
 

@@ -7,7 +7,7 @@
 
 注意：Region 名（集号）在线取不到（[R-13] 出参不回写），--ep 解析一律离线读 RPP（extract_regions.parse_rpp）。
 
-四关（任何一关不过 = FAIL）：
+出厂自检（任何一关不过 = FAIL）：
   1. 区间对账：Region 内 item 数 == --expect（不信任何计数器）+ 空块扫描（无 take/无 source）；
   2. 同轨重叠：相邻 item 时间窗不重叠（0.05s 容差）；
   3. 越界审计：每条 off+len ≤ DB 源长（basename 匹配 duration_map）；

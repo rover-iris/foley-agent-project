@@ -10,6 +10,7 @@
   2. 路径：S 字典逐条 q() 解析 + 文件存在性；
   3. 越界预审：off+len ≤ DB 源长；
   4. 非零取窗取证：off>0 的条目跑 ffmpeg volumedetect（窗口 max_volume > −30dB 才放行，铁律 10）；
+     缺省走 vd_batch 并发+缓存（提速实施案 P0-2），--serial 回退逐窗串行旧路径；
   5. 同源计数：同一 source_key 一集 ≤2 次（retrieval.md 硬约束）。
 产物：备料报告 JSON（证据留痕，交班报告引用它，禁手抄数值）。
 """
@@ -52,6 +53,8 @@ def main():
     ap.add_argument("--db", help="音源库 DB（缺省取 config.paths.asset_db）")
     ap.add_argument("--out", help="备料报告 JSON 路径（缺省 <data 同目录>/备料报告_<EP>.json）")
     ap.add_argument("--ffmpeg", default="ffmpeg")
+    ap.add_argument("--serial", action="store_true",
+                    help="vd 取证回退串行旧路径（缺省走 vd_batch 并发+缓存，提速实施案 P0-2）")
     a = ap.parse_args()
 
     m = load_data(a.data)
@@ -98,7 +101,8 @@ def main():
             report["paths"][alias] = p
         durs = duration_map(db)
 
-        # 3./4./5. 逐条预审
+        # 3./4./5. 逐条预审（vd 窗口先收齐，循环后统一取证）
+        vd_pending = []  # [(cues索引, label, path, off, ln)]
         for i, c in enumerate(cues):
             ti, t_local, skey, ln, label, fade, off, vol, fi = c
             path = S.get(skey)
@@ -110,9 +114,25 @@ def main():
                 problems.append(f"CUES[{i}] {label}：越界 off={off}+len={ln} > 源长 {d:.2f}")
                 report["violations"].append({"i": i, "label": label, "kind": "越界"})
             if off and off > 0:  # 非零取窗必须取证（铁律 10）
-                mv = volumedetect(path, off, ln, a.ffmpeg)
+                vd_pending.append((i, label, path, off, ln))
+        # 4. vd 取证：缺省并发+缓存（P0-2）；--serial 回退逐窗串行旧路径
+        vd_results = {}
+        if vd_pending:
+            if a.serial:
+                for i, label, path, off, ln in vd_pending:
+                    vd_results[i] = {"max_volume": volumedetect(path, off, ln, a.ffmpeg),
+                                     "cached": False}
+            else:
+                from vd_batch import vd_batch as _vdb
+                jobs = [{"path": p, "off": o, "len": l} for _, _, p, o, l in vd_pending]
+                for (i, *_), res in zip(vd_pending, _vdb(jobs, ffmpeg=a.ffmpeg)):
+                    vd_results[i] = res
+            for i, label, path, off, ln in vd_pending:
+                res = vd_results[i]
+                mv = res["max_volume"]
                 ev = {"i": i, "label": label, "off": off, "len": ln,
-                      "max_volume": mv, "pass": bool(mv is not None and mv > VD_LIMIT)}
+                      "max_volume": mv, "cached": res.get("cached", False),
+                      "pass": bool(mv is not None and mv > VD_LIMIT)}
                 report["vd_evidence"].append(ev)
                 if not ev["pass"]:
                     problems.append(f"CUES[{i}] {label}：vd 证据不达标（max_volume={mv}，要求 >{VD_LIMIT}dB）")

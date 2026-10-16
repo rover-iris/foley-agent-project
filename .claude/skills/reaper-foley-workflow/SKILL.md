@@ -1,6 +1,6 @@
 ---
 name: reaper-foley-workflow
-description: AI 驱动 REAPER 影视音效工作流（foley pipeline）通用方法论与工具集。覆盖：从逐秒动作分析报告出发的每集贴轨 SOP（帧证据核验→音源库检索选材→reapy_boost 自动贴轨→三重自检）、从模板新建/扩展剧集工程（Region 分集）、48k/24bit 分轨导出、以及 REAPER/reapy 全部实机踩坑速查。Use whenever 用户提到 REAPER 音效、贴轨、自动贴音效、foley、音效工程、分轨导出/stem、音源库检索、给视频按时间轴配音效、新建音效工程、Region 基准、reapy/reapy_boost —— 即使只说「贴一下音效」「导分轨」「建个音效工程」也要触发。
+description: AI 驱动 REAPER 影视音效工作流（foley pipeline）通用方法论与工具集。覆盖：从逐秒动作分析报告出发的每集贴轨 SOP（帧证据核验→音源库检索选材→reapy_boost 自动贴轨→出厂自检）、从模板新建/扩展剧集工程（Region 分集）、48k/24bit 分轨导出、以及 REAPER/reapy 全部实机踩坑速查。Use whenever 用户提到 REAPER 音效、贴轨、自动贴音效、foley、音效工程、分轨导出/stem、音源库检索、给视频按时间轴配音效、新建音效工程、Region 基准、reapy/reapy_boost —— 即使只说「贴一下音效」「导分轨」「建个音效工程」也要触发。
 ---
 
 # Reaper Foley Workflow — AI 驱动影视音效工作流
@@ -17,7 +17,7 @@ description: AI 驱动 REAPER 影视音效工作流（foley pipeline）通用方
 2. **音源实体文件只读**——只索引、只取路径，不移动不重命名。
 3. **外部报告不可直接信任**——贴轨前必须抽帧对照核验动作真实存在（假动作防御），一票否决。
 4. **改工程前必须备份**——.RPP 是纯文本，改坏前先复制；推子/mute/solo 状态先存 JSON。
-5. **每批贴轨必须三重自检全过**（区间对账 + 重叠检测 + off+len 越界审计），不过不进下一步。
+5. **每批贴轨必须出厂自检全过**，不过不进下一步。出厂自检 = selfcheck_ep.py 执行的验收关卡组；**关目权威清单 → references/place-and-audit.md「出厂自检」节**（关卡增减排他地只改该节与 selfcheck_ep.py，其他文档一律引用 [铁律 5] 不复述关目）。
 6. **渲染期间不许碰 REAPER**——手动暂停/切工程会污染渲染内容（文件正常但整条静音）。
 7. **脚本必须幂等可安全重跑**——reapy 偶发段错误（exit 1 零输出）是已知现象，重跑靠防重机制保证不贴重。
 8. **音量一律不动（制作人条款）**——D_VOL 恒为 1.0，任何文档/派单出现「vol 0.3~0.5 / 0.5~0.8」经验值一律按**已废止**处理并上报，不得照抄执行。抄任何旧 place 模板前先检查并清除 vol 赋值逻辑——旧模板的「已定稿」只代表当年口径，不代表现在。
@@ -63,7 +63,7 @@ description: AI 驱动 REAPER 影视音效工作流（foley pipeline）通用方
 
 ```
 上游报告 → ①帧证据核验 → ②实测Region基准 → ③检索选材 → ④写place脚本
-        → ⑤执行贴轨 → ⑥三重自检 → ⑦存档+更新进度
+        → ⑤执行贴轨 → ⑥出厂自检 → ⑦存档+更新进度
 ```
 
 | 步 | 要点 | 详见 |
@@ -73,7 +73,7 @@ description: AI 驱动 REAPER 影视音效工作流（foley pipeline）通用方
 | ③ | 音源库 SQLite+FTS5 检索；同源≤2次/异窗轮换/锁包优先；星级不硬卡（弱/轻类 cue 不做星级与 Designed 加权）；力度/质感对位硬校验 | references/retrieval.md |
 | ④ | 总监直出 `cues_<集号>.py` 数据文件（直通模式）；`prepare_ep.py` 预审（vd 取证/越界/同源）FAIL 即打回 | references/place-and-audit.md 直通模式节 |
 | ⑤ | `place_ep_template.py --data` 直跑，幂等防重，段错误直接重跑；**成败不看计数器看对账** | references/place-and-audit.md |
-| ⑥ | `selfcheck_ep.py` 一键四关：区间对账 + 空块 + 重叠 + 越界 + 父轨清查 | references/place-and-audit.md 直通模式节 |
+| ⑥ | `selfcheck_ep.py` 出厂自检（关目 [铁律 5]） | references/place-and-audit.md 直通模式节 |
 | ⑦ | place 脚本按集留档；工程保存+静默关闭 → `reaper-remote-ops` §5；**更新项目进度文档** | reaper-remote-ops SKILL |
 
 多集连做：逐集跑完逐集自检，**不要攒一起跑**（段错误重跑时无法定位是哪集）。

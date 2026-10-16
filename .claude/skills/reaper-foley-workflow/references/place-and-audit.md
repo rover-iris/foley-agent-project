@@ -1,4 +1,4 @@
-# 贴轨脚本规范与三重自检
+# 贴轨脚本规范与出厂自检
 
 > 模板：`scripts/place_ep_template.py`。cue 数据格式是定稿，别改结构。
 
@@ -81,9 +81,11 @@ API 创建的 item **不自动建 peaks 缓存**，不建则界面无波形（�
 
 对账数量不足自动再跑一轮（防重保证第二轮只补缺的）。两轮后仍不足报错退出，人工介入。
 
-## 三重自检（全过才算完工）
+## 出厂自检（全过才算完工）
 
-1. **区间对账**：目标 Region 内 item 数 == CUES 条数（逐条打印 相对时间/长度/源文件名 人工过目）。
+> **关目权威清单 = 本节**（[铁律 5] 指针落点；关卡增减排他地只改本节与 selfcheck_ep.py）。
+
+1. **区间对账**：目标 Region 内 item 数 == CUES 条数（逐条打印 相对时间/长度/源文件名 人工过目）；含空块扫描（take/source 指针无效即违规）。
 2. **重叠检测**：同轨相邻 item 时间窗不得重叠（`a.pos + a.len > b.pos + 0.05` 即违规）。重叠的音效分上下不同轨叠加。
 3. **越界审计**：每条 cue `off + len ≤ 源时长`（`scripts/audit_offsets.py`，对 DB 的 duration 全量比对，可续跑；源长按文件名取最大值兜底同名异目录）。超界处理原则：**裁 len，宁可短不可越界**（越界 = 尾部读到别的段/静音）。
 4. **父轨清查**：全部 ISBUS=1 轨 item 数 = 0（实机 + 落盘解析双通道）。
@@ -149,7 +151,7 @@ python scripts/extract_regions.py --rpp <工程.RPP> --out region_bases.csv   # 
    ```
 2. **备料预审**（不碰 REAPER）：`python prepare_ep.py --data cues_<集号>.py --config foley_project.json`——结构/路径解析/越界预审/非零取窗 vd 取证/同源计数，FAIL 即打回总监；PASS 出 `备料报告_<EP>.json`（vd 证据留痕，交班引用它）。
 3. **贴轨**：`python place_ep_template.py --data cues_<集号>.py --config foley_project.json [--dry-run 先核对]`——模板照旧内置防重/建峰/自检。
-4. **一键自检**：`python selfcheck_ep.py --ep <集号> --tracks 14:29 --expect <条数> --config foley_project.json`——对账+空块+重叠+越界+父轨清查四关一次跑完，末行 RESULT JSON。
+4. **一键自检**：`python selfcheck_ep.py --ep <集号> --tracks 14:29 --expect <条数> --config foley_project.json`——出厂自检一次跑完（关目见「出厂自检」节），末行 RESULT JSON。
 
 旧路径（抄模板手填必填区）仍可用，仅当总监未直出数据文件时回退。
 
@@ -160,7 +162,7 @@ python scripts/extract_regions.py --rpp <工程.RPP> --out region_bases.csv   # 
 ### 验收包模板（五节齐全；缺一节 = 缺包）
 
 1. **对账表**：CUES 逐条 ↔ 落盘 rpp 条目（轨号/绝对落点/时长/源文件/sofs，容差 0.01s），全命中或逐行列差异；
-2. **四关自检输出**：`selfcheck_ep.py` 末行 RESULT JSON 原文内联 + 四关逐项违规计数（对账/重叠/越界/父轨，各 = 0）；
+2. **出厂自检输出**：`selfcheck_ep.py` 末行 RESULT JSON 原文内联 + 逐项违规计数（关目见「出厂自检」节，各 = 0）；
 3. **帧比对输出**：`verify_frames.py` 末行 RESULT JSON 原文内联 + MISMATCH/NOFRAME 清单（有则逐条列，无则写 0）；
 4. **vd 证据**：非零取窗逐条 max_volume 数值内联，并注明来源文件路径（备料报告/vd 结果 JSON，禁手抄）；
 5. **存疑清单**：待人删/待人裁条目逐条内联（label / 轨号 / 绝对时段 / 待裁问题）。
